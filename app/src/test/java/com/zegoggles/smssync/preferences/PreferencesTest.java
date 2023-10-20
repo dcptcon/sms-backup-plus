@@ -16,6 +16,7 @@ public class PreferencesTest {
     Preferences preferences;
 
     @Before public void before() {
+        //noinspection deprecation
         preferences = new Preferences(RuntimeEnvironment.application);
     }
 

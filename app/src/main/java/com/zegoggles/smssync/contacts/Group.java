@@ -1,5 +1,7 @@
 package com.zegoggles.smssync.contacts;
 
+import androidx.annotation.NonNull;
+
 import java.util.Locale;
 
 public class Group {
@@ -12,6 +14,7 @@ public class Group {
         this.count = count;
     }
 
+    @NonNull
     public String toString() {
         return count > 0 ? String.format(Locale.ENGLISH, "%s (%d)", title, count) : title;
     }

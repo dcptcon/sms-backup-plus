@@ -110,6 +110,7 @@ class BackupTask extends AsyncTask<BackupConfig, BackupState, BackupState> {
         App.register(this);
     }
 
+    /** @noinspection unused*/
     @Subscribe public void canceled(CancelEvent cancelEvent) {
         if (LOCAL_LOGV) {
             Log.v(TAG, "canceled("+cancelEvent+")");
@@ -191,7 +192,7 @@ class BackupTask extends AsyncTask<BackupConfig, BackupState, BackupState> {
                     appLogDebug("token refreshed, retrying");
                     return fetchAndBackupItems(config.retryWithStore(service.getBackupImapStore()));
                 } catch (MessagingException ignored) {
-                    Log.w(TAG, ignored);
+                    /*Log.w(TAG, ignored);*/
                 } catch (TokenRefreshException refreshException) {
                     appLogDebug("error refreshing token: "+refreshException+", cause="+refreshException.getCause());
                 }

@@ -3,7 +3,6 @@ package com.zegoggles.smssync.activity.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.zegoggles.smssync.App;
@@ -28,17 +27,11 @@ public abstract class SMSBackupPreferenceFragment extends PreferenceFragmentComp
 
     void addPreferenceListener(final Object event, String... prefKeys) {
         for (String prefKey : prefKeys) {
+            //noinspection DataFlowIssue
             findPreference(prefKey).setOnPreferenceChangeListener(
-                    new Preference.OnPreferenceChangeListener() {
-                        public boolean onPreferenceChange(Preference preference, final Object newValue) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    App.post(event);
-                                }
-                            });
-                            return true;
-                        }
+                    (preference, newValue) -> {
+                        handler.post(() -> App.post(event));
+                        return true;
                     });
         }
     }

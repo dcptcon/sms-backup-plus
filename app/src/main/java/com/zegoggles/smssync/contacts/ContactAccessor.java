@@ -37,7 +37,7 @@ public class ContactAccessor {
      * @throws SecurityException if READ_CONTACTS permission is missing
      */
     public Map<Integer, Group> getGroups(ContentResolver resolver, Resources resources) {
-        final Map<Integer, Group> map = new LinkedHashMap<Integer, Group>();
+        final Map<Integer, Group> map = new LinkedHashMap<>();
 
         map.put(EVERYBODY_ID, new Group(EVERYBODY_ID, resources.getString(R.string.everybody), 0));
 

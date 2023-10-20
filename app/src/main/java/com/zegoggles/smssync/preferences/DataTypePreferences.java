@@ -40,7 +40,7 @@ public class DataTypePreferences implements SharedPreferences.OnSharedPreference
     }
 
     public EnumSet<DataType> enabled() {
-        List<DataType> enabledTypes = new ArrayList<DataType>();
+        List<DataType> enabledTypes = new ArrayList<>();
         for (DataType t : DataType.values()) {
             if (isBackupEnabled(t)) {
                 enabledTypes.add(t);
@@ -65,6 +65,7 @@ public class DataTypePreferences implements SharedPreferences.OnSharedPreference
         }
     }
 
+    /** @noinspection UnusedReturnValue*/
     public boolean setMaxSyncedDate(DataType dataType, long max) {
         return sharedPreferences.edit().putLong(dataType.maxSyncedPreference, max).commit();
     }

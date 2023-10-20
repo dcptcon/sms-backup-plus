@@ -30,6 +30,7 @@ public class BootReceiverTest {
 
     @Test
     public void shouldScheduleBootupBackupAfterBootup() throws Exception {
+        //noinspection deprecation
         receiver.onReceive(RuntimeEnvironment.application, new Intent().setAction(Intent.ACTION_BOOT_COMPLETED));
         verify(backupJobs, times(1)).scheduleBootup();
     }

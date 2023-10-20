@@ -1,4 +1,4 @@
-# SMS Backup+ <img src="https://raw.githubusercontent.com/jberkel/sms-backup-plus/master/metadata/play/assets/sms-backup.svg?sanitize=true" height="50px" alt="SMS Backup+ logo"/> [![Build Status SVG][]][Build Status] [![Open Source Helpers](https://www.codetriage.com/jberkel/sms-backup-plus/badges/users.svg)](https://www.codetriage.com/jberkel/sms-backup-plus)
+# hSMSBackup+ <img src="https://raw.githubusercontent.com/jberkel/sms-backup-plus/master/metadata/play/assets/sms-backup.svg?sanitize=true" height="50px" alt="SMS Backup+ logo"/> [![Build Status SVG][]][Build Status] [![Open Source Helpers](https://www.codetriage.com/jberkel/sms-backup-plus/badges/users.svg)](https://www.codetriage.com/jberkel/sms-backup-plus)
 
 [<img alt="Get it on Google Play" src="https://jberkel.github.io/sms-backup-plus/assets/img/google-play-badge.png" height="80pt"/>][Google Play Store] [<img alt="Get it on F-Droid" src="https://jberkel.github.io/sms-backup-plus/assets/img/f-droid-badge.svg" height="80pt"/>][F-Droid]
 
@@ -238,7 +238,6 @@ course be addressed.
   * Prevent phone from sleeping - needed to keep network active during a backup
   * Find accounts on the device - used for authentication
   * Use accounts on the device - used for authentication
-  * Google Play billing service - used for in-app donations
   * Run at startup - used to enable automatic backups after reboot
 
 👉 1.5.11 introduces runtime permissions (Android 6.0+) which means that you only grant the permissions

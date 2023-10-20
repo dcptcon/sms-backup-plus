@@ -9,6 +9,8 @@ import static com.zegoggles.smssync.service.BackupType.UNKNOWN;
 import static com.zegoggles.smssync.service.state.SmsSyncState.BACKUP;
 import static com.zegoggles.smssync.service.state.SmsSyncState.INITIAL;
 
+import androidx.annotation.NonNull;
+
 public class BackupState extends State {
     public final BackupType backupType;
     public final int currentSyncedItems, itemsToSync;
@@ -29,6 +31,7 @@ public class BackupState extends State {
         this.backupType = backupType;
     }
 
+    @NonNull
     @Override public String toString() {
         return "BackupState{" +
                 "currentSyncedItems=" + currentSyncedItems +

@@ -1,7 +1,6 @@
 package com.zegoggles.smssync.preferences;
 
 import android.preference.PreferenceManager;
-import com.fsck.k9.mail.AuthType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,10 +16,12 @@ public class AuthPreferencesTest {
 
     @Before public void before() {
         initMocks(this);
+        //noinspection deprecation
         authPreferences = new AuthPreferences(RuntimeEnvironment.application);
     }
 
     @Test public void testStoreUri() throws Exception {
+        //noinspection deprecation
         PreferenceManager
             .getDefaultSharedPreferences(RuntimeEnvironment.application)
             .edit()
@@ -35,6 +36,7 @@ public class AuthPreferencesTest {
     }
 
     @Test public void testStoreUriWithXOAuth2() throws Exception {
+        //noinspection deprecation
         PreferenceManager
             .getDefaultSharedPreferences(RuntimeEnvironment.application)
             .edit()

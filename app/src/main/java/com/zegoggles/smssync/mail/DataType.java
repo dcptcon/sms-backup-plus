@@ -55,7 +55,7 @@ public enum DataType {
     }
 
     public Set<String> checkPermissions(Context context) {
-        Set<String> missing = new HashSet<String>();
+        Set<String> missing = new HashSet<>();
         for (String permission : requiredPermissions) {
             if (ContextCompat.checkSelfPermission(context, permission) == PERMISSION_DENIED) {
                 missing.add(permission);

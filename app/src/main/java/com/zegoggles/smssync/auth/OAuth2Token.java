@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import static com.zegoggles.smssync.App.TAG;
 
+import androidx.annotation.NonNull;
+
 public class OAuth2Token {
     public final String accessToken;
     public final String tokenType;
@@ -38,6 +40,7 @@ public class OAuth2Token {
         }
     }
 
+    /** @noinspection DataFlowIssue*/
     private static OAuth2Token fromJSON(JSONObject object) throws IOException {
         try {
             return new OAuth2Token(
@@ -52,6 +55,7 @@ public class OAuth2Token {
         }
     }
 
+    @NonNull
     @Override
     public String toString() {
         return getTokenForLogging();

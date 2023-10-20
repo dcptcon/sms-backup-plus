@@ -39,7 +39,9 @@ public class MessageConverterTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        //noinspection deprecation
         BinaryTempFileBody.setTempDirectory(RuntimeEnvironment.application.getCacheDir());
+        //noinspection deprecation
         messageConverter = new MessageConverter(RuntimeEnvironment.application,
                 preferences, "foo@example.com", personLookup, contactAccessor);
     }
@@ -114,6 +116,7 @@ public class MessageConverterTest {
         when(record.getAddress(any(AddressStyle.class))).thenReturn(new Address("foo"));
         when(preferences.getMarkAsReadType()).thenReturn(MarkAsReadTypes.MESSAGE_STATUS);
 
+        //noinspection deprecation
         messageConverter = new MessageConverter(RuntimeEnvironment.application,
                 preferences, "foo@example.com", personLookup, contactAccessor);
 
@@ -136,6 +139,7 @@ public class MessageConverterTest {
         when(record.getAddress(any(AddressStyle.class))).thenReturn(new Address("foo"));
         when(preferences.getMarkAsReadType()).thenReturn(MarkAsReadTypes.UNREAD);
 
+        //noinspection deprecation
         messageConverter = new MessageConverter(RuntimeEnvironment.application,
                 preferences, "foo@example.com", personLookup, contactAccessor);
 
@@ -158,6 +162,7 @@ public class MessageConverterTest {
         when(record.getAddress(any(AddressStyle.class))).thenReturn(new Address("foo"));
         when(preferences.getMarkAsReadType()).thenReturn(MarkAsReadTypes.READ);
 
+        //noinspection deprecation
         messageConverter = new MessageConverter(RuntimeEnvironment.application,
                 preferences, "foo@example.com", personLookup, contactAccessor);
 

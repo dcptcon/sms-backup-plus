@@ -16,6 +16,7 @@
 
 package com.zegoggles.smssync.service;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -63,6 +64,7 @@ public class SmsBackupService extends ServiceBase {
     private static final int BACKUP_ID = 1;
     private static final int NOTIFICATION_ID_WARNING = 1;
 
+    @SuppressLint("StaticFieldLeak")
     @Nullable private static SmsBackupService service;
     @NonNull private BackupState state = new BackupState();
 
@@ -137,7 +139,7 @@ public class SmsBackupService extends ServiceBase {
     }
 
     private void checkPermissions(EnumSet<DataType> enabledTypes) throws MissingPermissionException {
-        Set<String> missing = new HashSet<String>();
+        Set<String> missing = new HashSet<>();
         for (DataType dataType : enabledTypes) {
             missing.addAll(dataType.checkPermissions(this));
         }
@@ -199,6 +201,7 @@ public class SmsBackupService extends ServiceBase {
         return state.backupType.isBackground();
     }
 
+    /** @noinspection unused*/
     @Produce public BackupState produceLastState() {
         return state;
     }
@@ -277,7 +280,7 @@ public class SmsBackupService extends ServiceBase {
             final Job nextSync = getBackupJobs().scheduleRegular();
             if (nextSync != null) {
                 JobTrigger.ExecutionWindowTrigger trigger = (JobTrigger.ExecutionWindowTrigger) nextSync.getTrigger();
-                Date date = new Date(System.currentTimeMillis() + (trigger.getWindowStart() * 1000));
+                Date date = new Date(System.currentTimeMillis() + (trigger.getWindowStart() * 1000L));
                 appLog(R.string.app_log_scheduled_next_sync,
                         DateFormat.format("kk:mm", date));
             } else {
@@ -286,6 +289,7 @@ public class SmsBackupService extends ServiceBase {
         } // else job already persisted
     }
 
+    /** @noinspection SameParameterValue*/
     void notifyUser(int notificationId, NotificationCompat.Builder builder) {
         getNotifier().notify(notificationId, builder.build());
     }

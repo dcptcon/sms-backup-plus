@@ -65,8 +65,8 @@ class Attachment {
     }
 
     private static class ResolverBody extends Base64Body {
-        private ContentResolver resolver;
-        private Uri uri;
+        private final ContentResolver resolver;
+        private final Uri uri;
 
         ResolverBody(@NonNull ContentResolver contentResolver, @NonNull Uri uri) {
             resolver = contentResolver;
@@ -94,7 +94,7 @@ class Attachment {
         StringBuilder buf = new StringBuilder();
         boolean encoded = encodeRFC2231value(value, buf);
         if (encoded) {
-            return "; " + key + "*=" + buf.toString();
+            return "; " + key + "*=" + buf/*.toString()*/;
         } else {
             return "; " + key + "=" + value;
         }

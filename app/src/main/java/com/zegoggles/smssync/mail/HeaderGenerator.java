@@ -56,6 +56,7 @@ class HeaderGenerator {
         }
     }
 
+    /** @noinspection RedundantThrows*/
     private void setSmsHeaders(Message message, Map<String,String> msgMap) throws MessagingException {
         message.setHeader(Headers.ID, msgMap.get(Telephony.BaseMmsColumns._ID));
         message.setHeader(Headers.TYPE, msgMap.get(Telephony.TextBasedSmsColumns.TYPE));
@@ -67,6 +68,7 @@ class HeaderGenerator {
         message.setHeader(Headers.SERVICE_CENTER, msgMap.get(Telephony.TextBasedSmsColumns.SERVICE_CENTER));
     }
 
+    /** @noinspection RedundantThrows*/
     private void setMmsHeaders(Message message, Map<String,String> msgMap) throws MessagingException {
         message.setHeader(Headers.ID, msgMap.get(Telephony.BaseMmsColumns._ID));
         message.setHeader(Headers.TYPE, msgMap.get(Telephony.BaseMmsColumns.MESSAGE_TYPE));
@@ -75,6 +77,7 @@ class HeaderGenerator {
         message.setHeader(Headers.READ, msgMap.get(Telephony.BaseMmsColumns.READ));
     }
 
+    /** @noinspection RedundantThrows*/
     private void setCallLogHeaders(Message message, Map<String,String> msgMap) throws MessagingException {
         message.setHeader(Headers.ID, msgMap.get(CallLog.Calls._ID));
         message.setHeader(Headers.TYPE, msgMap.get(CallLog.Calls.TYPE));
@@ -104,17 +107,20 @@ class HeaderGenerator {
         try {
             final MessageDigest digest = MessageDigest.getInstance("MD5");
 
+            //noinspection CharsetObjectCanBeUsed
             digest.update(Long.toString(sent.getTime()).getBytes(UTF_8));
             if (address != null) {
+                //noinspection CharsetObjectCanBeUsed
                 digest.update(address.getBytes(UTF_8));
             }
+            //noinspection CharsetObjectCanBeUsed
             digest.update(Integer.toString(type).getBytes(UTF_8));
 
             final StringBuilder sb = new StringBuilder();
             for (byte b : digest.digest()) {
                 sb.append(String.format(Locale.ENGLISH, "%02x", b));
             }
-            return String.format(Locale.ENGLISH, MSG_ID_TEMPLATE, sb.toString());
+            return String.format(Locale.ENGLISH, MSG_ID_TEMPLATE, sb/*.toString()*/);
         } catch (java.io.UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         } catch (java.security.NoSuchAlgorithmException e) {

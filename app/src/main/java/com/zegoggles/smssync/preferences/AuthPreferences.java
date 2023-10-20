@@ -49,7 +49,7 @@ public class AuthPreferences {
 
     /**
      * IMAP URI.
-     *
+
      * This should be in the form of:
      * <ol>
      * <li><code>imap+ssl+://XOAUTH2:ENCODED_USERNAME:ENCODED_TOKEN@imap.gmail.com:993</code></li>
@@ -141,6 +141,7 @@ public class AuthPreferences {
         }
     }
 
+    @NonNull
     public String toString() {
         if (DEFAULT_SERVER_ADDRESS.equals(getServername())) {
             return getImapUsername() + " (Gmail)";
@@ -259,6 +260,7 @@ public class AuthPreferences {
         final String token = getOauth2Token();
         final String formatted = "user=" + username + "\001auth=Bearer " + token + "\001\001";
         try {
+            //noinspection CharsetObjectCanBeUsed
             return Base64.encodeToString(formatted.getBytes(UTF_8), NO_WRAP);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);

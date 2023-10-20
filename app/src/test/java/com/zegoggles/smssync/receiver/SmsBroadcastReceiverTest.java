@@ -25,6 +25,7 @@ public class SmsBroadcastReceiverTest {
 
     @Before public void before() {
         initMocks(this);
+        //noinspection deprecation
         context = RuntimeEnvironment.application;
         receiver = new SmsBroadcastReceiver() {
             @Override protected BackupJobs getBackupJobs(Context context) {

@@ -107,6 +107,7 @@ public class PersonLookupTest {
         assertThat(record.isUnknown()).isTrue();
     }
 
+    /** @noinspection SameParameterValue*/
     private Cursor name(String... names) {
         MatrixCursor cursor = new MatrixCursor(new String[] {
             ContactsContract.Contacts._ID,

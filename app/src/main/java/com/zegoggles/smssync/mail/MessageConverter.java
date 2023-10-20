@@ -123,6 +123,7 @@ public class MessageConverter {
     }
 
 
+    /** @noinspection DataFlowIssue*/
     public @NonNull ContentValues messageToContentValues(final Message message)
             throws IOException, MessagingException {
         if (message == null) throw new MessagingException("message is null");
@@ -184,7 +185,7 @@ public class MessageConverter {
 
     private Map<String, String> getMessageMap(Cursor cursor) {
         final String[] columns = cursor.getColumnNames();
-        final Map<String, String> msgMap = new HashMap<String, String>(columns.length);
+        final Map<String, String> msgMap = new HashMap<>(columns.length);
         for (String column : columns) {
             String value;
             try {

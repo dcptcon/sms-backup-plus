@@ -1,5 +1,6 @@
 package com.zegoggles.smssync.mail;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -64,6 +65,7 @@ class MmsSupport {
                           String recipient,
                           PersonRecord record,
                           Address address) {
+            //noinspection ArraysAsListWithZeroOrOneArgument
             this(inbound, Arrays.asList(recipient), Arrays.asList(record), Arrays.asList(address));
         }
 
@@ -72,6 +74,7 @@ class MmsSupport {
         }
 
         public Address[] getAddresses() {
+            //noinspection ToArrayCallWithZeroLengthArrayArgument
             return addresses.toArray(new Address[addresses.size()]);
         }
 
@@ -90,8 +93,9 @@ class MmsSupport {
 
         // TODO: this is probably not the best way to determine if a message is inbound or outbound
         boolean inbound = true;
-        final List<String> recipients = new ArrayList<String>();
+        final List<String> recipients = new ArrayList<>();
         while (cursor != null && cursor.moveToNext()) {
+            @SuppressLint("Range")
             final String address = cursor.getString(cursor.getColumnIndex("address"));
             //final int type       = addresses.getInt(addresses.getColumnIndex("type"));
             if (MmsConsts.INSERT_ADDRESS_TOKEN.equals(address)) {
@@ -102,8 +106,8 @@ class MmsSupport {
         }
         if (cursor != null) cursor.close();
 
-        List<PersonRecord> records = new ArrayList<PersonRecord>(recipients.size());
-        List<Address> addresses = new ArrayList<Address>(recipients.size());
+        List<PersonRecord> records = new ArrayList<>(recipients.size());
+        List<Address> addresses = new ArrayList<>(recipients.size());
         if (!recipients.isEmpty()) {
             for (String s : recipients) {
                 PersonRecord record = personLookup.lookupPerson(s);
@@ -114,8 +118,9 @@ class MmsSupport {
         return new MmsDetails(inbound, recipients, records, addresses);
     }
 
+    @SuppressLint("Range")
     public List<BodyPart> getMMSBodyParts(final Uri uriPart) throws MessagingException {
-        final List<BodyPart> parts = new ArrayList<BodyPart>();
+        final List<BodyPart> parts = new ArrayList<>();
         Cursor curPart = resolver.query(uriPart, null, null, null, null);
 
         // _id, mid, seq, ct, name, chset, cd, fn, cid, cl, ctt_s, ctt_t, _data, text

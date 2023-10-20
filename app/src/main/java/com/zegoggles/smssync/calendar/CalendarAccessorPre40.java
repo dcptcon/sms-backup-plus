@@ -19,7 +19,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 
 import java.util.Date;
@@ -29,10 +28,12 @@ import java.util.Map;
 import static com.zegoggles.smssync.App.LOCAL_LOGV;
 import static com.zegoggles.smssync.App.TAG;
 
+import androidx.annotation.NonNull;
+
 public class CalendarAccessorPre40 implements CalendarAccessor {
     private static final Uri CALENDAR = Uri.parse("content://com.android.calendar");
 
-    private ContentResolver resolver;
+    private final ContentResolver resolver;
 
     CalendarAccessorPre40(ContentResolver resolver) {
         this.resolver = resolver;
@@ -76,18 +77,18 @@ public class CalendarAccessorPre40 implements CalendarAccessor {
         return false;
     }
 
-    public boolean addEntry(long calendarId, Date when, int duration,
-                            String title, String description) {
+    public boolean addEntry(long calendarId, @NonNull Date when, int duration,
+                            @NonNull String title, String description) {
         if (LOCAL_LOGV) {
             Log.v(TAG, String.format("addEntry(%d, %s, %d, %s, %s)",
-                    calendarId, when.toString(), duration, title, description));
+                    calendarId, when/*.toString()*/, duration, title, description));
         }
 
         final ContentValues contentValues = new ContentValues();
         contentValues.put(Consts.TITLE, title);
         contentValues.put(Consts.DESCRIPTION, description);
         contentValues.put(Consts.DTSTART, when.getTime());
-        contentValues.put(Consts.DTEND, when.getTime() + duration * 1000);
+        contentValues.put(Consts.DTEND, when.getTime() + duration * 1000L);
         contentValues.put(Consts.VISIBILITY, Consts.VISIBILITY_DEFAULT);
         contentValues.put(Consts.STATUS, Consts.STATUS_CONFIRMED);
         contentValues.put(Consts.CALENDAR_ID, calendarId);
@@ -101,10 +102,12 @@ public class CalendarAccessorPre40 implements CalendarAccessor {
         }
     }
 
+    @NonNull
     public Map<String, String> getCalendars() {
-        final Map<String, String> map = new LinkedHashMap<String, String>();
+        final Map<String, String> map = new LinkedHashMap<>();
 
         Cursor cursor = null;
+        //noinspection TryFinallyCanBeTryWithResources
         try {
             cursor = resolver.query(Uri.withAppendedPath(CALENDAR, "calendars"),
                     new String[]{"_id", "displayname"},

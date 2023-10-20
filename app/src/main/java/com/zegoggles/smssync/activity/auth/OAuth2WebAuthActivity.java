@@ -28,6 +28,7 @@ public class OAuth2WebAuthActivity extends ThemeActivity {
         finish();
     }
 
+    /** @noinspection unused*/
     @Subscribe
     public void onBrowserAuthResult(RedirectReceiverActivity.BrowserAuthResult event) {
         if (!TextUtils.isEmpty(event.code)) {

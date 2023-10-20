@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
@@ -74,6 +75,7 @@ public class StatusPreference extends Preference implements View.OnClickListener
     public StatusPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         preferences = new Preferences(context);
+        //noinspection resource
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.StatusPreference,
@@ -107,7 +109,7 @@ public class StatusPreference extends Preference implements View.OnClickListener
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
         backupButton = (Button) holder.findViewById(R.id.sync_button);
@@ -139,6 +141,7 @@ public class StatusPreference extends Preference implements View.OnClickListener
         super.onRestoreInstanceState(state);
     }
 
+    /** @noinspection unused*/
     @Subscribe public void restoreStateChanged(final RestoreState newState) {
         if (App.LOCAL_LOGV) Log.v(TAG, "restoreStateChanged:" + newState);
 
@@ -171,6 +174,7 @@ public class StatusPreference extends Preference implements View.OnClickListener
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void backupStateChanged(final BackupState newState) {
         if (App.LOCAL_LOGV) Log.v(TAG, "backupStateChanged:"+newState);
         if (newState.backupType.isBackground()) return;
@@ -199,6 +203,7 @@ public class StatusPreference extends Preference implements View.OnClickListener
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void onMissingPermissions(MissingPermissionsEvent event) {
         displayMissingPermissions(event.permissions);
     }

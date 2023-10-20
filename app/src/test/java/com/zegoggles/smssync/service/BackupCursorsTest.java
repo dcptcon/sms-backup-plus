@@ -66,7 +66,7 @@ public class BackupCursorsTest {
         try {
             cursors.next();
             fail("expected exception");
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException ignored) {
         }
     }
 

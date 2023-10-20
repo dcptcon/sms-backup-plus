@@ -35,6 +35,7 @@ public class BackupItemsFetcherTest {
 
     @Before public void before() {
         initMocks(this);
+        //noinspection deprecation
         context = RuntimeEnvironment.application;
         preferences = new Preferences(context);
         fetcher = new BackupItemsFetcher(
@@ -89,6 +90,7 @@ public class BackupItemsFetcherTest {
         assertThat(fetcher.getMostRecentTimestamp(CALLLOG)).isEqualTo(23L);
     }
 
+    /** @noinspection SameParameterValue*/
     private void mockMostRecentTimestampForType(DataType type, long max) {
         MatrixCursor cursor = new MatrixCursor(new String[]{"date"});
         cursor.addRow(new Object[] { max });

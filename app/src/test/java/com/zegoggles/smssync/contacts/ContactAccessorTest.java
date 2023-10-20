@@ -1,5 +1,6 @@
 package com.zegoggles.smssync.contacts;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.MatrixCursor;
 import android.provider.ContactsContract;
@@ -30,7 +31,9 @@ public class ContactAccessorTest {
         accessor = new ContactAccessor();
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldAccessContactsWithEverybody() throws Exception {
+        //noinspection deprecation
         Map<Integer,Group> groups = accessor.getGroups(resolver, RuntimeEnvironment.application.getResources());
         assertThat(groups).hasSize(1);
 
@@ -39,6 +42,7 @@ public class ContactAccessorTest {
         assertThat(everybody._id).isEqualTo(EVERYBODY_ID);
         assertThat(everybody.count).isEqualTo(0);
 
+        //noinspection resource
         verify(resolver).query(eq(ContactsContract.Groups.CONTENT_SUMMARY_URI),
                 any(String[].class),
                 any(String.class),
@@ -46,6 +50,7 @@ public class ContactAccessorTest {
                 eq(ContactsContract.Groups.TITLE + " ASC"));
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test
     public void shouldGetGroupsFromResolver() throws Exception {
 
@@ -62,6 +67,7 @@ public class ContactAccessorTest {
                 eq(ContactsContract.Groups.TITLE + " ASC"))).thenReturn(
                 cursor
         );
+        //noinspection deprecation
         Map<Integer,Group> groups = accessor.getGroups(resolver, RuntimeEnvironment.application.getResources());
 
         assertThat(groups).hasSize(2);
@@ -77,6 +83,7 @@ public class ContactAccessorTest {
         ContactGroupIds ids = accessor.getGroupContactIds(resolver, new ContactGroup(1));
         assertThat(ids.isEmpty()).isTrue();
 
+        //noinspection resource
         verify(resolver).query(
                 eq(ContactsContract.Data.CONTENT_URI),
                 eq(new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID, ContactsContract.CommonDataKinds.GroupMembership.RAW_CONTACT_ID,
@@ -87,6 +94,7 @@ public class ContactAccessorTest {
         );
     }
 
+    @SuppressLint("CheckResult")
     @Test public void shouldGetGroupContactIdsFromResolver() throws Exception {
         MatrixCursor cursor = new MatrixCursor(
             new String[] {

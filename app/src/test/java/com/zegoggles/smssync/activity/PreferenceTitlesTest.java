@@ -15,12 +15,14 @@ public class PreferenceTitlesTest {
 
     @Before
     public void setUp() throws Exception {
+        //noinspection deprecation
         subject = new PreferenceTitles(RuntimeEnvironment.application.getResources(), R.xml.preferences);
     }
 
     @Test public void testParseValidKey() {
         final int res = subject.getTitleRes("com.zegoggles.smssync.activity.fragments.AutoBackupSettings");
         assertThat(res).isGreaterThan(0);
+        //noinspection deprecation
         String resolved = RuntimeEnvironment.application.getString(res);
         assertThat(resolved).isEqualTo("Auto backup settings");
     }

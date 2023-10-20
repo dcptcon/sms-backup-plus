@@ -30,8 +30,8 @@ public interface CalendarAccessor {
 
     /**
      * Finds a list of calendars available on the phone.
-     *
-     *
+
+
      * @return a Map relating the id of the calendars found to their names.
      */
     @NonNull Map<String, String> getCalendars();

@@ -10,7 +10,7 @@ import java.util.EnumSet;
 
 public class BulkFetcher {
 
-    private BackupItemsFetcher itemsFetcher;
+    private final BackupItemsFetcher itemsFetcher;
 
     public BulkFetcher(BackupItemsFetcher itemsFetcher) {
         this.itemsFetcher = itemsFetcher;

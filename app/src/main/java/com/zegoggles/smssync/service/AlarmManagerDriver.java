@@ -100,7 +100,7 @@ class AlarmManagerDriver implements Driver, JobValidator {
     }
 
     @Override
-    public List<String> validate(JobParameters jobParameters) {
+    public List<String> validate(@NonNull JobParameters jobParameters) {
         return null;
     }
 
@@ -108,7 +108,7 @@ class AlarmManagerDriver implements Driver, JobValidator {
      * @return a List of error messages, or null if the Trigger is valid.
      */
     @Override
-    public List<String> validate(JobTrigger jobTrigger) {
+    public List<String> validate(@NonNull JobTrigger jobTrigger) {
         return null;
     }
 
@@ -116,7 +116,7 @@ class AlarmManagerDriver implements Driver, JobValidator {
      * @return a List of error messages, or null if the Trigger is valid.
      */
     @Override
-    public List<String> validate(RetryStrategy retryStrategy) {
+    public List<String> validate(@NonNull RetryStrategy retryStrategy) {
         return null;
     }
 

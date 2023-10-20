@@ -19,10 +19,11 @@ import java.security.cert.X509Certificate;
 // https://github.com/k9mail/k-9/commit/daea7f1ecdb4515298a6c57dd5a829689426c2c9
 @SuppressLint("TrustAllX509TrustManager")
 class AllTrustedSocketFactory implements TrustedSocketFactory {
-    public static TrustedSocketFactory INSTANCE = new AllTrustedSocketFactory();
+    public static final TrustedSocketFactory INSTANCE = new AllTrustedSocketFactory();
 
     private AllTrustedSocketFactory() {}
 
+    /** @noinspection RedundantThrows*/
     @Override
     public Socket createSocket(Socket socket, String host, int port, String clientCertificateAlias) throws NoSuchAlgorithmException, KeyManagementException, MessagingException, IOException {
         TrustManager[] trustManagers = new TrustManager[] { new InsecureX509TrustManager() };
@@ -39,6 +40,7 @@ class AllTrustedSocketFactory implements TrustedSocketFactory {
         return trustedSocket;
     }
 
+    @SuppressLint("CustomX509TrustManager")
     private static class InsecureX509TrustManager implements X509TrustManager
     {
         public void checkClientTrusted(X509Certificate[] chain, String authType)

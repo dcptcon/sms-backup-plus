@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Matchers.eq;
+//import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -77,8 +77,9 @@ public class CalendarSyncerTest {
         verify(accessor, never()).enableSync(CALENDAR_ID);
     }
 
+    /** @noinspection SameParameterValue*/
     private Map<String,String> message(int DURATION, int TYPE, String NUMBER, Date callTime) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put(CallLog.Calls.DURATION, String.valueOf(DURATION));
         map.put(CallLog.Calls.TYPE, String.valueOf(TYPE));
         map.put(CallLog.Calls.NUMBER,   NUMBER);

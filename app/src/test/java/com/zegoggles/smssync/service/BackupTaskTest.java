@@ -25,8 +25,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
@@ -57,6 +55,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class BackupTaskTest {
     BackupTask task;
     BackupConfig config;
+    /** @noinspection unused*/
     Context context;
     @Mock BackupImapStore store;
     @Mock BackupImapStore.BackupFolder folder;
@@ -74,11 +73,13 @@ public class BackupTaskTest {
     @Before public void before() {
         initMocks(this);
         config = getBackupConfig(EnumSet.of(SMS));
+        //noinspection deprecation
         when(service.getApplicationContext()).thenReturn(RuntimeEnvironment.application);
         when(service.getState()).thenReturn(state);
         when(preferences.getDataTypePreferences()).thenReturn(dataTypePreferences);
 
         task = new BackupTask(service, fetcher, converter, syncer, authPreferences, preferences, accessor, tokenRefresher);
+        //noinspection deprecation
         context = RuntimeEnvironment.application;
     }
 
@@ -228,20 +229,17 @@ public class BackupTaskTest {
     }
 
 
+    /** @noinspection SameParameterValue*/
     private ConversionResult result(DataType type, int n) {
         ConversionResult result = new ConversionResult(type);
         for (int i = 0; i<n; i++) {
-            result.add(new MimeMessage(), new HashMap<String, String>());
+            result.add(new MimeMessage(), new HashMap<>());
         }
         return result;
     }
 
     private void mockFetch(DataType type, final int n) {
-        when(fetcher.getItemsForDataType(eq(type), any(ContactGroupIds.class), anyInt())).then(new Answer<Object>() {
-            @Override public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
-                return testMessages(n);
-            }
-        });
+        when(fetcher.getItemsForDataType(eq(type), any(ContactGroupIds.class), anyInt())).then(invocationOnMock -> testMessages(n));
     }
 
     private Cursor testMessages(int n) {

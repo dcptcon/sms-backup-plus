@@ -20,7 +20,7 @@ public class ThreadHelper {
     private static final int MAX_THREAD_CACHE_SIZE = 500;
 
     @SuppressWarnings("serial")
-    private Map<String, Long> threadIdCache =
+    private final Map<String, Long> threadIdCache =
             new LinkedHashMap<String, Long>(MAX_THREAD_CACHE_SIZE + 1, .75F, true) {
                 @Override
                 public boolean removeEldestEntry(Map.Entry<String, Long> eldest) {
@@ -59,6 +59,7 @@ public class ThreadHelper {
         }
     }
 
+    /** @noinspection SameReturnValue*/
     private Long noThreadsAvailable(Throwable e) {
         Log.e(TAG, "threadsNotAvailable", e);
         threadsAvailable = false;

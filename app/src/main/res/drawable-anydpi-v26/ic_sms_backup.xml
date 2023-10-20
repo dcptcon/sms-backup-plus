@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+<adaptive-icon xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MonochromeLauncherIcon">
     <background android:drawable="@color/adaptive_icon_background"/>
     <foreground>
         <!-- resized to fit into 66dp circle ("safe zone") inside 108dp square

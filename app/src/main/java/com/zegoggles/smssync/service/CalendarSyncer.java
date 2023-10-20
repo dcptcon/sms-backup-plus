@@ -31,6 +31,7 @@ class CalendarSyncer {
         this.callFormatter = callFormatter;
     }
 
+    /** @noinspection DataFlowIssue*/
     public void syncCalendar(ConversionResult result) {
         enableSync();
 
@@ -40,7 +41,7 @@ class CalendarSyncer {
                 final int duration = Integer.parseInt(m.get(CallLog.Calls.DURATION));
                 final int callType = Integer.parseInt(m.get(CallLog.Calls.TYPE));
                 final String number = m.get(CallLog.Calls.NUMBER);
-                final Date then = new Date(Long.valueOf(m.get(CallLog.Calls.DATE)));
+                final Date then = new Date(Long.parseLong(m.get(CallLog.Calls.DATE)));
                 final PersonRecord record = personLookup.lookupPerson(number);
 
                 // insert into calendar

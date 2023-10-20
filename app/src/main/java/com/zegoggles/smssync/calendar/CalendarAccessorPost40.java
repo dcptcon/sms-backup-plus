@@ -1,13 +1,11 @@
 package com.zegoggles.smssync.calendar;
 
-import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.CalendarContract;
 import androidx.annotation.NonNull;
 import android.util.Log;
@@ -20,10 +18,9 @@ import java.util.TimeZone;
 import static com.zegoggles.smssync.App.LOCAL_LOGV;
 import static com.zegoggles.smssync.App.TAG;
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class CalendarAccessorPost40 implements CalendarAccessor {
 
-    private ContentResolver resolver;
+    private final ContentResolver resolver;
 
     CalendarAccessorPost40(ContentResolver resolver) {
         this.resolver = resolver;
@@ -42,14 +39,14 @@ public class CalendarAccessorPost40 implements CalendarAccessor {
                             @NonNull String description) {
         if (LOCAL_LOGV) {
             Log.v(TAG, String.format("addEntry(%d, %s, %d, %s, %s)",
-                    calendarId, when.toString(), duration, title, description));
+                    calendarId, when/*.toString()*/, duration, title, description));
         }
 
         final ContentValues contentValues = new ContentValues();
         contentValues.put(CalendarContract.Events.TITLE, title);
         contentValues.put(CalendarContract.Events.DESCRIPTION, description);
         contentValues.put(CalendarContract.Events.DTSTART, when.getTime());
-        contentValues.put(CalendarContract.Events.DTEND, when.getTime() + duration * 1000);
+        contentValues.put(CalendarContract.Events.DTEND, when.getTime() + duration * 1000L);
         contentValues.put(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_DEFAULT);
         contentValues.put(CalendarContract.Events.STATUS, CalendarContract.Events.STATUS_CONFIRMED);
         contentValues.put(CalendarContract.Events.CALENDAR_ID, calendarId);
@@ -72,9 +69,10 @@ public class CalendarAccessorPost40 implements CalendarAccessor {
 
     @Override @NonNull
     public Map<String, String> getCalendars() {
-        final Map<String, String> map = new LinkedHashMap<String, String>();
+        final Map<String, String> map = new LinkedHashMap<>();
 
         Cursor cursor = null;
+        //noinspection TryFinallyCanBeTryWithResources
         try {
             cursor = resolver.query(CalendarContract.Calendars.CONTENT_URI,
                 new String[] {

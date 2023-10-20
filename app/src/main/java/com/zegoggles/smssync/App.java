@@ -105,6 +105,7 @@ public class App extends Application {
         register(this);
     }
 
+    /** @noinspection unused*/
     @Subscribe public void autoBackupSettingsChanged(final AutoBackupSettingsChangedEvent event) {
         if (LOCAL_LOGV) {
             Log.v(TAG, "autoBackupSettingsChanged("+event+")");
@@ -117,7 +118,7 @@ public class App extends Application {
         try {
             bus.register(listener);
         } catch (IllegalArgumentException ignored) {
-            Log.w(TAG, ignored);
+            /*Log.w(TAG, ignored);*/
         }
      }
 
@@ -125,7 +126,7 @@ public class App extends Application {
         try {
             bus.unregister(listener);
         } catch (IllegalArgumentException ignored) {
-            Log.w(TAG, ignored);
+            /*Log.w(TAG, ignored);*/
         }
     }
 

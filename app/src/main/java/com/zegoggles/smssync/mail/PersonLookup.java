@@ -74,6 +74,7 @@ public class PersonLookup {
 
             if (c != null) c.close();
         }
+        //noinspection DataFlowIssue
         return personCache.get(address);
     }
 

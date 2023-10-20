@@ -16,7 +16,6 @@
 package com.zegoggles.smssync.utils;
 
 import androidx.preference.ListPreference;
-import androidx.preference.Preference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,11 +26,12 @@ public class ListPreferenceHelper {
     private ListPreferenceHelper() {
     }
 
+    /** @noinspection UnusedReturnValue*/
     public static boolean initListPreference(final ListPreference pref,
                                              final Map<?, ?> fields, boolean keepExisting) {
         if (fields.size() > 0) {
-            final List<CharSequence> e = new ArrayList<CharSequence>();
-            final List<CharSequence> ev = new ArrayList<CharSequence>();
+            final List<CharSequence> e = new ArrayList<>();
+            final List<CharSequence> ev = new ArrayList<>();
 
             if (keepExisting) {
                 if (pref.getEntries() != null) e.addAll(Arrays.asList(pref.getEntries()));
@@ -45,19 +45,18 @@ public class ListPreferenceHelper {
                 }
             }
 
+            //noinspection ToArrayCallWithZeroLengthArrayArgument
             pref.setEntries(e.toArray(new CharSequence[e.size()]));
+            //noinspection ToArrayCallWithZeroLengthArrayArgument
             pref.setEntryValues(ev.toArray(new CharSequence[ev.size()]));
         }
 
-        pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, final Object newValue) {
-                pref.setTitle(
-                        pref.getEntries()[
-                                pref.findIndexOfValue(newValue.toString())
-                                ]);
-                return true;
-            }
+        pref.setOnPreferenceChangeListener((preference, newValue) -> {
+            pref.setTitle(
+                    pref.getEntries()[
+                            pref.findIndexOfValue(newValue.toString())
+                            ]);
+            return true;
         });
 
         CharSequence[] entries = pref.getEntries();

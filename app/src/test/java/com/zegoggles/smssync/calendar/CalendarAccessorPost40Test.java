@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.CalendarContract;
 import android.text.format.Time;
 import org.junit.Before;
@@ -94,6 +93,7 @@ public class CalendarAccessorPost40Test {
         assertThat(calendars).containsEntry("12", "Testing");
     }
 
+    /** @noinspection unchecked*/
     @Test
     public void shouldIgnoreSQLiteException() {
         when(resolver.insert(eq(CONTENT_URI), any(ContentValues.class))).thenThrow(SQLiteException.class);

@@ -23,8 +23,8 @@ public class BackupConfig {
                  @NonNull BackupType backupType,
                  @NonNull EnumSet<DataType> typesToBackup,
                  boolean debug) {
-        if (imapStore == null) throw new IllegalArgumentException("need imapstore");
-        if (typesToBackup == null || typesToBackup.isEmpty()) throw new IllegalArgumentException("need to specify types to backup");
+        //if (imapStore == null) throw new IllegalArgumentException("need imapstore");
+        if (/*typesToBackup == null ||*/ typesToBackup.isEmpty()) throw new IllegalArgumentException("need to specify types to backup");
         if (currentTry < 0) throw new IllegalArgumentException("currentTry < 0");
 
         this.imapStore = imapStore;
@@ -45,6 +45,7 @@ public class BackupConfig {
     }
 
 
+    @NonNull
     @Override public String toString() {
         return "BackupConfig{" +
                 "imap=" + imapStore +

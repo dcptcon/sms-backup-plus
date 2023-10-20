@@ -48,6 +48,7 @@ public class TokenRefresherTest {
         when(authPreferences.getOauth2Token()).thenReturn("token");
         when(authPreferences.getOauth2Username()).thenReturn("username");
 
+        //noinspection unchecked
         when(accountManager.getAuthToken(notNull(Account.class),
                 anyString(),
                 isNull(Bundle.class),
@@ -64,6 +65,7 @@ public class TokenRefresherTest {
         verify(accountManager).invalidateAuthToken(GOOGLE_TYPE, "token");
     }
 
+    /** @noinspection unchecked*/
     @Test public void shouldHandleExceptionsThrownByFuture() throws Exception {
         when(authPreferences.getOauth2Token()).thenReturn("token");
         when(authPreferences.getOauth2Username()).thenReturn("username");
@@ -95,6 +97,7 @@ public class TokenRefresherTest {
         when(authPreferences.getOauth2Token()).thenReturn("token");
         when(authPreferences.getOauth2Username()).thenReturn("username");
 
+        //noinspection unchecked
         AccountManagerFuture<Bundle> future = mock(AccountManagerFuture.class);
 
         when(accountManager.getAuthToken(

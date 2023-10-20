@@ -22,21 +22,25 @@ public class SmsReceiverTest {
 
     @Test @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
     public void testOnReceivePreKitKat() {
+        //noinspection deprecation
         subject.onReceive(RuntimeEnvironment.application, new Intent());
     }
 
     @Test @Config(sdk = Build.VERSION_CODES.KITKAT)
     public void testOnReceiveKitKat() {
+        //noinspection deprecation
         subject.onReceive(RuntimeEnvironment.application, new Intent());
     }
 
     @Test @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
     public void testIsSmsBackupDefaultSmsAppPreKitKat() {
+        //noinspection deprecation
         assertThat(SmsReceiver.isSmsBackupDefaultSmsApp(RuntimeEnvironment.application)).isFalse();
     }
 
     @Test @Config(sdk = Build.VERSION_CODES.KITKAT)
     public void testIsSmsBackupDefaultSmsAppKitKat() {
+        //noinspection deprecation
         assertThat(SmsReceiver.isSmsBackupDefaultSmsApp(RuntimeEnvironment.application)).isFalse();
     }
 }

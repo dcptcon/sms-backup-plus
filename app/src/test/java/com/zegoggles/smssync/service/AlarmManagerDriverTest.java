@@ -32,12 +32,15 @@ import static com.firebase.jobdispatcher.FirebaseJobDispatcher.SCHEDULE_RESULT_U
 import static com.google.common.truth.Truth.assertThat;
 import static org.robolectric.Shadows.shadowOf;
 
+import androidx.annotation.NonNull;
+
 @RunWith(RobolectricTestRunner.class)
 public class AlarmManagerDriverTest {
     private AlarmManagerDriver subject;
 
     @Before
     public void setUp() throws Exception {
+        //noinspection deprecation
         subject = new AlarmManagerDriver(RuntimeEnvironment.application);
     }
 
@@ -79,7 +82,9 @@ public class AlarmManagerDriverTest {
         assertThat(result).isEqualTo(SCHEDULE_RESULT_UNSUPPORTED_TRIGGER);
     }
 
+    /** @noinspection UnusedReturnValue*/
     private Intent assertAlarmScheduled(String ofExpectedType) {
+        //noinspection deprecation
         AlarmManager alarmManager = (AlarmManager) RuntimeEnvironment.application.getSystemService(Context.ALARM_SERVICE);
         ShadowAlarmManager shadow = shadowOf(alarmManager);
 
@@ -106,12 +111,12 @@ public class AlarmManagerDriverTest {
     private Job.Builder jobBuilder() {
         return new FirebaseJobDispatcher(new Driver() {
             @Override
-            public int schedule(Job job) {
+            public int schedule(@NonNull Job job) {
                 return 0;
             }
 
             @Override
-            public int cancel(String tag) {
+            public int cancel(@NonNull String tag) {
                 return 0;
             }
 
@@ -120,21 +125,22 @@ public class AlarmManagerDriverTest {
                 return 0;
             }
 
+            @NonNull
             @Override
             public JobValidator getValidator() {
                 return new JobValidator() {
                     @Override
-                    public List<String> validate(JobParameters jobParameters) {
+                    public List<String> validate(@NonNull JobParameters jobParameters) {
                         return null;
                     }
 
                     @Override
-                    public List<String> validate(JobTrigger jobTrigger) {
+                    public List<String> validate(@NonNull JobTrigger jobTrigger) {
                         return null;
                     }
 
                     @Override
-                    public List<String> validate(RetryStrategy retryStrategy) {
+                    public List<String> validate(@NonNull RetryStrategy retryStrategy) {
                         return null;
                     }
                 };

@@ -49,6 +49,7 @@ import static org.robolectric.Shadows.shadowOf;
 public class SmsBackupServiceTest {
     SmsBackupService service;
     ShadowConnectivityManager shadowConnectivityManager;
+    /** @noinspection unused*/
     ShadowWifiManager shadowWifiManager;
     List<NotificationCompat.Builder> sentNotifications;
 
@@ -60,9 +61,11 @@ public class SmsBackupServiceTest {
 
     @Before public void before() {
         initMocks(this);
-        sentNotifications = new ArrayList<NotificationCompat.Builder>();
+        sentNotifications = new ArrayList<>();
         service = new SmsBackupService() {
-            @Override public Context getApplicationContext() { return RuntimeEnvironment.application; }
+            @Override public Context getApplicationContext() {
+                //noinspection deprecation
+                return RuntimeEnvironment.application; }
             @Override public Resources getResources() { return getApplicationContext().getResources(); }
             @Override protected BackupTask getBackupTask() { return backupTask; }
             @Override protected BackupJobs getBackupJobs() { return backupJobs; }
@@ -207,6 +210,7 @@ public class SmsBackupServiceTest {
         assertThat(shadowOf(service).isForegroundStopped()).isTrue();
     }
 
+    /** @noinspection SameParameterValue, unused */
     private void assertNotificationShown(CharSequence title, CharSequence message) {
         assertThat(sentNotifications).hasSize(1);
         // TODO
@@ -218,6 +222,7 @@ public class SmsBackupServiceTest {
     }
 
     private NetworkInfo connectedViaEdge() {
+        //noinspection deprecation
         return ShadowNetworkInfo.newInstance(
             null,  /* detailed state */
             ConnectivityManager.TYPE_MOBILE_HIPRI,

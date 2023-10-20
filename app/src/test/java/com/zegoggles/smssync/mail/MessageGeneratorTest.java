@@ -10,7 +10,7 @@ import com.zegoggles.smssync.contacts.ContactGroupIds;
 import com.zegoggles.smssync.preferences.AddressStyle;
 import com.zegoggles.smssync.preferences.CallLogTypes;
 import com.zegoggles.smssync.preferences.DataTypePreferences;
-import com.zegoggles.smssync.preferences.Preferences;
+//import com.zegoggles.smssync.preferences.Preferences;
 import org.apache.james.mime4j.util.MimeUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +49,7 @@ public class MessageGeneratorTest {
     @Before public void before() {
         initMocks(this);
         me = new Address("mine@mine.com", "me");
+        //noinspection deprecation
         generator = new MessageGenerator(RuntimeEnvironment.application,
                 me,
                 AddressStyle.NAME,
@@ -63,7 +64,7 @@ public class MessageGeneratorTest {
     }
 
     @Test public void testShouldReturnNullIfMessageHasNoAddress() throws Exception {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         Message msg = generator.messageForDataType(map, DataType.SMS);
         assertThat(msg).isNull();
     }
@@ -78,6 +79,7 @@ public class MessageGeneratorTest {
     @Test public void testShouldGenerateSMSMessageWithCorrectEncoding() throws Exception {
         PersonRecord record = new PersonRecord(1, "Test Testor", null, null);
         Message msg = generator.messageForDataType(mockMessage("1234", record), DataType.SMS);
+        //noinspection DataFlowIssue
         assertThat(msg.getHeader(MimeHeader.HEADER_CONTENT_TRANSFER_ENCODING)).isEqualTo(new String[] {
                 MimeUtil.ENC_QUOTED_PRINTABLE
         });
@@ -105,6 +107,7 @@ public class MessageGeneratorTest {
 
         when(mmsSupport.getDetails(any(Uri.class), any(AddressStyle.class))).thenReturn(details);
         Message msg = generator.messageForDataType(mockMessage("1234", personRecord), DataType.MMS);
+        //noinspection DataFlowIssue
         assertThat(msg.getHeader(MimeHeader.HEADER_CONTENT_TRANSFER_ENCODING)).isEqualTo(new String[] {
                 MimeUtil.ENC_7BIT
         });
@@ -150,6 +153,7 @@ public class MessageGeneratorTest {
     @Test public void testShouldGenerateCallLogMessageWithCorrectEncoding() throws Exception {
         PersonRecord record = new PersonRecord(-1, "Test Testor", null, null);
         Message msg = generator.messageForDataType(mockCalllogMessage("1234", OUTGOING_TYPE, record), CALLLOG);
+        //noinspection DataFlowIssue
         assertThat(msg.getHeader(MimeHeader.HEADER_CONTENT_TRANSFER_ENCODING)).isEqualTo(new String[] {
                 MimeUtil.ENC_QUOTED_PRINTABLE
         });
@@ -189,6 +193,7 @@ public class MessageGeneratorTest {
         Message msg = generator.messageForDataType(map, DataType.SMS);
         assertThat(msg).isNotNull();
 
+        //noinspection unchecked
         verify(headerGenerator).setHeaders(any(Message.class),
                 any(Map.class),
                 eq(DataType.SMS),
@@ -220,6 +225,7 @@ public class MessageGeneratorTest {
     }
 
     @Test public void shouldOnlyIncludePeopleFromContactIdsIfSpecified() throws Exception {
+        //noinspection deprecation
         MessageGenerator generator = new MessageGenerator(RuntimeEnvironment.application,
                 me,
                 AddressStyle.NAME,
@@ -241,15 +247,16 @@ public class MessageGeneratorTest {
         assertThat(generator.messageForDataType(map, DataType.SMS)).isNotNull();
     }
 
+    /** @noinspection SameParameterValue*/
     private Map<String, String> mockMessage(String address, PersonRecord record) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put(Telephony.TextBasedSmsColumns.ADDRESS, address);
         when(personLookup.lookupPerson(eq(address))).thenReturn(record);
         return map;
     }
 
     private Map<String, String> mockCalllogMessage(String address, int type, PersonRecord record) {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         map.put(CallLog.Calls.NUMBER, address);
         map.put(CallLog.Calls.TYPE, String.valueOf(type));
         when(personLookup.lookupPerson(eq(address))).thenReturn(record);

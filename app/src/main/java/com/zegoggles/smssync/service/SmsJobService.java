@@ -32,10 +32,12 @@ import static com.zegoggles.smssync.App.TAG;
 import static com.zegoggles.smssync.service.BackupType.REGULAR;
 import static com.zegoggles.smssync.service.CancelEvent.Origin.SYSTEM;
 
+import androidx.annotation.NonNull;
+
 
 public class SmsJobService extends JobService {
     /** job parameters keyed by job tag / {@link BackupType} */
-    private Map<String, JobParameters> jobs = new HashMap<String, JobParameters>();
+    private final Map<String, JobParameters> jobs = new HashMap<>();
 
     @Override
     public void onCreate() {
@@ -99,7 +101,7 @@ public class SmsJobService extends JobService {
      * @return true if the job should be retried
      */
     @Override
-    public boolean onStopJob(JobParameters jobParameters) {
+    public boolean onStopJob(@NonNull JobParameters jobParameters) {
         if (LOCAL_LOGV) {
             Log.v(TAG, "onStopJob(" + jobParameters + ", extras=" + jobParameters.getExtras() + ")");
         }
@@ -107,6 +109,7 @@ public class SmsJobService extends JobService {
         return false;
     }
 
+    /** @noinspection unused*/
     @Subscribe
     public void backupStateChanged(BackupState state) {
         if (!state.isFinished()) {

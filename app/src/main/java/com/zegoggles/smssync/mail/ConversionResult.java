@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class ConversionResult {
     public final DataType type;
-    private final List<Message> messages = new ArrayList<Message>();
-    private final List<Map<String, String>> mapList = new ArrayList<Map<String, String>>();
+    private final List<Message> messages = new ArrayList<>();
+    private final List<Map<String, String>> mapList = new ArrayList<>();
     private long maxDate = DataType.Defaults.MAX_SYNCED_DATE;
 
     public ConversionResult(DataType type) {
@@ -48,6 +48,7 @@ public class ConversionResult {
         return mapList;
     }
 
+    /** @noinspection unused*/
     public int size() {
         return messages.size();
     }

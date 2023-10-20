@@ -14,9 +14,11 @@ import java.util.NoSuchElementException;
 import static com.zegoggles.smssync.App.TAG;
 import static com.zegoggles.smssync.service.BackupItemsFetcher.emptyCursor;
 
+import androidx.annotation.NonNull;
+
 public class BackupCursors implements Iterator<BackupCursors.CursorAndType> {
-    private Map<DataType, Cursor> cursorMap = new HashMap<DataType, Cursor>();
-    private List<CursorAndType> cursorAndTypes = new ArrayList<CursorAndType>();
+    private final Map<DataType, Cursor> cursorMap = new HashMap<>();
+    private final List<CursorAndType> cursorAndTypes = new ArrayList<>();
 
     private int index;
 
@@ -33,6 +35,7 @@ public class BackupCursors implements Iterator<BackupCursors.CursorAndType> {
             return cursor.getCount() > 0 && !cursor.isLast();
         }
 
+        @NonNull
         @Override public String toString() {
             return "CursorAndType{" +
                     "type=" + type +

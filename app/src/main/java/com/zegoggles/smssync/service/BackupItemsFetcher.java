@@ -20,8 +20,8 @@ public class BackupItemsFetcher {
 
     BackupItemsFetcher(@NonNull ContentResolver resolver,
                        @NonNull BackupQueryBuilder queryBuilder) {
-        if (resolver == null) throw new IllegalArgumentException("resolver cannot be null");
-        if (queryBuilder == null) throw new IllegalArgumentException("queryBuilder cannot be null");
+        //if (resolver == null) throw new IllegalArgumentException("resolver cannot be null");
+        //if (queryBuilder == null) throw new IllegalArgumentException("queryBuilder cannot be null");
 
         this.queryBuilder = queryBuilder;
         this.resolver = resolver;
@@ -44,6 +44,7 @@ public class BackupItemsFetcher {
 
     private long getMostRecentTimestampForQuery(BackupQueryBuilder.Query query) {
         Cursor cursor = performQuery(query);
+        //noinspection TryFinallyCanBeTryWithResources
         try {
             if (cursor.moveToFirst()) {
                 return cursor.getLong(0);
@@ -59,6 +60,7 @@ public class BackupItemsFetcher {
     private @NonNull Cursor performQuery(@Nullable BackupQueryBuilder.Query query) {
         if (query == null) return emptyCursor();
         try {
+            //noinspection resource
             final Cursor cursor = resolver.query(
                     query.uri,
                     query.projection,

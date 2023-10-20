@@ -12,6 +12,7 @@ public class Drawables {
     @NonNull
     public static Drawable getTinted(Resources resources, int resource, int color) {
         Drawable drawable = ResourcesCompat.getDrawable(resources, resource, null);
+        //noinspection DataFlowIssue
         drawable = DrawableCompat.wrap(drawable);
         DrawableCompat.setTint(drawable.mutate(), color);
         return drawable;

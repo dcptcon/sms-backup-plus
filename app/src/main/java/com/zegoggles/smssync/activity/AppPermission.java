@@ -19,14 +19,16 @@ public enum AppPermission {
     READ_CONTACTS(Manifest.permission.READ_CONTACTS, R.string.permission_read_contacts),
     UNKNOWN(null, R.string.permission_unknown);
 
+    /** @noinspection JavadocBlankLines*/
     final int descriptionResource;
     final @Nullable String androidPermission;
 
-    AppPermission(String androidPermission, int descriptionResource) {
+    AppPermission(@Nullable String androidPermission, int descriptionResource) {
         this.androidPermission = androidPermission;
         this.descriptionResource = descriptionResource;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "AppPermission{" + androidPermission + '}';
@@ -42,7 +44,7 @@ public enum AppPermission {
     }
 
     public static List<AppPermission> from(@NonNull String[] androidPermissions) {
-        List<AppPermission> appPermissions = new ArrayList<AppPermission>();
+        List<AppPermission> appPermissions = new ArrayList<>();
         for (String permission : androidPermissions) {
             appPermissions.add(from(permission));
         }
@@ -50,7 +52,7 @@ public enum AppPermission {
     }
 
     public static List<AppPermission> from(@NonNull String[] androidPermissions, @NonNull int[] grantResults) {
-        List<AppPermission> appPermissions = new ArrayList<AppPermission>();
+        List<AppPermission> appPermissions = new ArrayList<>();
         for (int i=0; i<androidPermissions.length; i++) {
             if (grantResults[i] == PERMISSION_DENIED) {
                 appPermissions.add(from(androidPermissions[i]));
@@ -63,8 +65,7 @@ public enum AppPermission {
      * “It is possible that the permissions request interaction
      * with the user is interrupted. In this case you will receive empty permissions
      * and results arrays which should be treated as a cancellation.“
-     *
-     * {@link androidx.core.app.FragmentActivity#onRequestPermissionsResult(int, String[], int[])}
+
      */
     public static boolean allGranted(@NonNull int[] grantResults) {
         if (grantResults.length == 0) {
@@ -83,7 +84,7 @@ public enum AppPermission {
     }
 
     public static String formatMissingPermissionDetails(Resources resources, List<AppPermission> appPermissions) {
-        List<String> permissions = new ArrayList<String>();
+        List<String> permissions = new ArrayList<>();
         for (AppPermission permission : appPermissions) {
             permissions.add(resources.getString(permission.descriptionResource));
         }

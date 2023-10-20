@@ -24,6 +24,7 @@ public class AutoBackupSettings extends SMSBackupPreferenceFragment {
         );
     }
 
+    /** @noinspection DataFlowIssue*/
     private void checkGCM() {
         if (!App.gcmAvailable) {
             final Preference preference = findPreference(USE_OLD_SCHEDULER.key);

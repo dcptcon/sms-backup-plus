@@ -1,5 +1,6 @@
 package com.zegoggles.smssync.service;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
@@ -22,9 +23,8 @@ import com.zegoggles.smssync.service.exception.SmsProviderNotWritableException;
 import com.zegoggles.smssync.service.state.RestoreState;
 
 import java.io.File;
-import java.io.FilenameFilter;
 
-import static com.zegoggles.smssync.App.CHANNEL_ID;
+//import static com.zegoggles.smssync.App.CHANNEL_ID;
 import static com.zegoggles.smssync.App.LOCAL_LOGV;
 import static com.zegoggles.smssync.App.TAG;
 import static com.zegoggles.smssync.compat.SmsReceiver.isSmsBackupDefaultSmsApp;
@@ -37,6 +37,7 @@ public class SmsRestoreService extends ServiceBase {
 
 
     @NonNull private RestoreState state = new RestoreState();
+    @SuppressLint("StaticFieldLeak")
     @Nullable private static SmsRestoreService service;
 
     @Override @NonNull
@@ -125,16 +126,14 @@ public class SmsRestoreService extends ServiceBase {
         if (tmp == null) return; // not sure why this would return null
 
         Log.d(TAG, "clearing cache in " + tmp);
-        for (File f : tmp.listFiles(new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                return name.startsWith("body");
-            }
-        })) {
+        //noinspection DataFlowIssue
+        for (File f : tmp.listFiles((dir, name) -> name.startsWith("body"))) {
             if (LOCAL_LOGV) Log.v(TAG, "deleting " + f);
             if (!f.delete()) Log.w(TAG, "error deleting " + f);
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void restoreStateChanged(final RestoreState state) {
         this.state = state;
         if (this.state.isInitialState()) return;
@@ -154,6 +153,7 @@ public class SmsRestoreService extends ServiceBase {
         }
     }
 
+    /** @noinspection unused*/
     @Produce public RestoreState produceLastState() {
         return state;
     }

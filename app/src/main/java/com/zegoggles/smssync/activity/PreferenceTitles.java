@@ -19,8 +19,9 @@ import java.util.Map;
 class PreferenceTitles {
     private static final String NS = "http://schemas.android.com/apk/res/android";
     private static final String PREFERENCE_SCREEN = "PreferenceScreen";
-    private Map<String, Integer> titleResources = new HashMap<String, Integer>();
+    private final Map<String, Integer> titleResources = new HashMap<>();
 
+    /** @noinspection SameParameterValue*/
     PreferenceTitles(@NonNull Resources resources, @XmlRes int preferenceRes) {
         final XmlResourceParser parser = resources.getXml(preferenceRes);
         try {

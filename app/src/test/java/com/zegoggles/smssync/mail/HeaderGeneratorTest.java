@@ -28,7 +28,7 @@ public class HeaderGeneratorTest {
 
     @Test public void testShouldGenerateStandardHeaders() throws Exception {
         Message message = new MimeMessage();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         Date sent = new Date();
 
         PersonRecord person = new PersonRecord(0, null, null, null);
@@ -49,7 +49,7 @@ public class HeaderGeneratorTest {
 
     @Test public void testShouldGenerateSMSHeaders() throws Exception {
         Message message = new MimeMessage();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         Date sent = new Date();
 
         PersonRecord person = new PersonRecord(0, null, null, null);
@@ -77,7 +77,7 @@ public class HeaderGeneratorTest {
 
     @Test public void testShouldGenerateCallLogHeaders() throws Exception {
         Message message = new MimeMessage();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         Date sent = new Date();
 
         PersonRecord person = new PersonRecord(0, null, null, null);
@@ -97,7 +97,7 @@ public class HeaderGeneratorTest {
 
     @Test public void testShouldGenerateMMSHeaders() throws Exception {
         Message message = new MimeMessage();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         Date sent = new Date();
 
         PersonRecord person = new PersonRecord(0, null, null, null);
@@ -119,7 +119,7 @@ public class HeaderGeneratorTest {
 
     @Test public void testShouldSetHeadersWithNullAddress() throws Exception {
         Message message = new MimeMessage();
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         Date sent = new Date();
         PersonRecord person = new PersonRecord(0, null, null, null);
 

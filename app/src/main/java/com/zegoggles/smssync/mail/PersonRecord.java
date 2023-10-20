@@ -9,6 +9,8 @@ import java.util.Locale;
 import static com.zegoggles.smssync.utils.Sanitizer.encodeLocal;
 import static com.zegoggles.smssync.utils.Sanitizer.sanitize;
 
+import androidx.annotation.NonNull;
+
 public class PersonRecord {
     private static final String UNKNOWN_NUMBER = "unknown.number";
     private static final String UNKNOWN_EMAIL = "unknown.email";
@@ -68,6 +70,7 @@ public class PersonRecord {
         return !TextUtils.isEmpty(name) ? name : getNumber();
     }
 
+    @NonNull
     public String toString() {
         return String.format(Locale.ENGLISH, "[name=%s email=%s id=%d]", getName(), email, _id);
     }

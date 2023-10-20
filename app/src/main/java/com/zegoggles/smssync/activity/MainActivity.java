@@ -16,6 +16,7 @@
 
 package com.zegoggles.smssync.activity;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.role.RoleManager;
 import android.content.Context;
@@ -173,6 +174,7 @@ public class MainActivity extends ThemeActivity implements
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -234,11 +236,12 @@ public class MainActivity extends ThemeActivity implements
     }
 
     @Override
-    public boolean onPreferenceStartFragment(PreferenceFragmentCompat caller, Preference preference) {
+    public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference preference) {
         if (LOCAL_LOGV) {
             Log.v(TAG, "onPreferenceStartFragment(" + preference + ")");
         }
 
+        //noinspection DataFlowIssue
         final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
                 getClassLoader(),
                 preference.getFragment());
@@ -249,7 +252,7 @@ public class MainActivity extends ThemeActivity implements
     }
 
     @Override
-    public boolean onPreferenceStartScreen(PreferenceFragmentCompat caller, PreferenceScreen preference) {
+    public boolean onPreferenceStartScreen(@NonNull PreferenceFragmentCompat caller, @NonNull PreferenceScreen preference) {
         if (LOCAL_LOGV) {
             Log.v(TAG, "onPreferenceStartScreen(" + preference + ")");
         }
@@ -262,12 +265,14 @@ public class MainActivity extends ThemeActivity implements
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void restoreStateChanged(final RestoreState newState) {
         if (newState.isFinished() && isSmsBackupDefaultSmsApp(this)) {
              restoreDefaultSmsProvider(preferences.getSmsDefaultPackage());
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void backupStateChanged(final BackupState newState) {
         if ((newState.backupType == MANUAL || newState.backupType == SKIP) && newState.isPermissionException()) {
             ActivityCompat.requestPermissions(this,
@@ -277,6 +282,7 @@ public class MainActivity extends ThemeActivity implements
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void onOAuth2Callback(OAuth2CallbackTask.OAuth2CallbackEvent event) {
         if (event.valid()) {
             authPreferences.setOauth2Token(event.token.userName, event.token.accessToken, event.token.refreshToken);
@@ -286,8 +292,10 @@ public class MainActivity extends ThemeActivity implements
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void onConnect(AccountConnectionChangedEvent event) {
         if (event.connected) {
+            //noinspection deprecation
             startActivityForResult(new Intent(this,
                     AccountManagerAuthActivity.class), REQUEST_PICK_ACCOUNT);
         } else {
@@ -299,10 +307,12 @@ public class MainActivity extends ThemeActivity implements
         if (event.showDialog) {
             showDialog(WEB_CONNECT);
         } else {
+            //noinspection deprecation
             startActivityForResult(fallbackAuthIntent, REQUEST_WEB_AUTH);
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void themeChangedEvent(ThemeChangedEvent event) {
         recreate();
     }
@@ -324,10 +334,12 @@ public class MainActivity extends ThemeActivity implements
             return 0;
         } else {
             final FragmentManager.BackStackEntry entry = getSupportFragmentManager().getBackStackEntryAt(entryCount - 1);
+            //noinspection deprecation
             return entry.getBreadCrumbTitleRes();
         }
     }
 
+    /** @noinspection unused*/
     @Subscribe public void performAction(PerformAction action) {
         if (authPreferences.isLoginInformationSet()) {
             if (action.confirm) {
@@ -394,6 +406,7 @@ public class MainActivity extends ThemeActivity implements
             .replace(R.id.preferences_container, fragment, rootKey);
         if (rootKey != null) {
             tx.addToBackStack(null);
+            //noinspection deprecation
             tx.setBreadCrumbTitle(args.getInt(SCREEN_TITLE_RES));
         }
         tx.commit();
@@ -423,10 +436,12 @@ public class MainActivity extends ThemeActivity implements
             if (roleManager != null && !roleManager.isRoleHeld(ROLE_SMS)) {
                 SmsReceiver.enable(this);
                 Intent intent = roleManager.createRequestRoleIntent(ROLE_SMS);
+                //noinspection deprecation
                 startActivityForResult(intent, REQUEST_CHANGE_DEFAULT_SMS_PACKAGE);
             }
         } else {
             Intent intent = new Intent(ACTION_CHANGE_DEFAULT).putExtra(EXTRA_PACKAGE_NAME, getPackageName());
+            //noinspection deprecation
             startActivityForResult(intent, REQUEST_CHANGE_DEFAULT_SMS_PACKAGE);
         }
     }

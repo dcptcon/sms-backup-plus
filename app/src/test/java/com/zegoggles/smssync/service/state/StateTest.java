@@ -21,6 +21,7 @@ public class StateTest {
     Resources resources;
 
     @Before public void before() {
+        //noinspection deprecation
         resources = RuntimeEnvironment.application.getResources();
     }
 

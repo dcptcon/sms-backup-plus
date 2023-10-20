@@ -135,6 +135,7 @@ public class AppLog {
     private static String readLog(File f) {
         StringBuilder text = new StringBuilder();
         BufferedReader br = null;
+        //noinspection TryFinallyCanBeTryWithResources
         try {
             br = new BufferedReader(new FileReader(f));
             String line;
@@ -180,6 +181,7 @@ public class AppLog {
         try {
             LineNumberReader r = new LineNumberReader(new FileReader(logFile));
 
+            //noinspection StatementWithEmptyBody
             while (r.readLine() != null) ;
             r.close();
 
@@ -187,6 +189,7 @@ public class AppLog {
             if (keep > 0) {
                 r = new LineNumberReader(new FileReader(logFile));
 
+                //noinspection StatementWithEmptyBody
                 while (r.readLine() != null && r.getLineNumber() < keep) ;
 
                 File newFile = new File(logFile.getAbsolutePath() + ".new");

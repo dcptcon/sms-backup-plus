@@ -1,5 +1,7 @@
 package com.zegoggles.smssync.service;
 
+import androidx.annotation.NonNull;
+
 import com.zegoggles.smssync.mail.BackupImapStore;
 
 public class RestoreConfig {
@@ -40,6 +42,7 @@ public class RestoreConfig {
         );
     }
 
+    @NonNull
     @Override public String toString() {
         return "RestoreConfig{" +
                 "currentTry=" + tries +

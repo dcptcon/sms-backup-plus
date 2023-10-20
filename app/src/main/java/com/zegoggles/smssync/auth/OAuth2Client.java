@@ -24,7 +24,7 @@ import java.net.URL;
 
 import static com.zegoggles.smssync.App.TAG;
 
-/**
+/*
  * https://developers.google.com/identity/protocols/OAuth2UserAgent
  */
 public class OAuth2Client {
@@ -36,7 +36,7 @@ public class OAuth2Client {
      * URI scheme based on a domain name under their control, expressed in
      * reverse order, as recommended by Section 3.8 of [RFC7595] for
      * private-use URI schemes.
-     *
+
      * For more details, see
      * <a href="https://tools.ietf.org/html/draft-ietf-oauth-native-apps-12#page-8">
      *     OAuth 2.0 for Native Apps
@@ -55,7 +55,7 @@ public class OAuth2Client {
      */
     private static final String CLIENT_ID = "client_id";
 
-    /**
+    /*
      * Determines where the response is sent.
      * The value of this parameter must exactly match one of the values that appear in the
      * Credentials page in the Google Developers Console (including the http or https scheme, case, and trailing slash).
@@ -67,7 +67,7 @@ public class OAuth2Client {
 
     /**
      * Space-delimited set of scope strings.
-     *
+
      * Identifies the Google API access that your application is requesting.
      * The values passed in this parameter inform the consent screen that is shown to the user. There may be an inverse
      * relationship between the number of permissions requested and the likelihood
@@ -75,28 +75,31 @@ public class OAuth2Client {
      */
     private static final String SCOPE = "scope";
 
-    /**
+    /*
      * Provides any state information that might be useful to your application upon receipt
      * of the response. The Google Authorization Server roundtrips this parameter, so your application receives
      * the same value it sent. Possible uses include redirecting the user to the
      * correct resource in your site, nonces, and cross-site-request-forgery mitigations.
      */
+    /** @noinspection unused*/
     private static final String STATE = "state";
 
-    /**
+    /*
      * When your application knows which user it is trying to authenticate, it can
      * provide this parameter as a hint to the Authentication Server.
      * Passing this hint will either pre-fill the email box on the sign-in form or select the proper
      * multi-login session, thereby simplifying the login flow.
      */
+    /** @noinspection unused*/
     private static final String LOGIN_HINT = "login_hint";
 
 
-    /**
+    /*
      * If this is provided with the value true, and the authorization request is granted, the authorization will include
      * any previous authorizations granted to this user/application combination
      * for other scopes; see Incremental Authorization.
      */
+    /** @noinspection unused*/
     private static final String INCLUDE_GRANTED_SCOPES = "include_granted_scopes";
 
     // Scopes as defined in http://code.google.com/apis/accounts/docs/OAuth.html#prepScope
@@ -179,6 +182,7 @@ public class OAuth2Client {
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         final OutputStream os = connection.getOutputStream();
+        //noinspection CharsetObjectCanBeUsed
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
         writer.write(payload);
         writer.flush();
@@ -259,6 +263,7 @@ public class OAuth2Client {
             }
         }
 
+        /** @noinspection RedundantThrows*/
         @Override
         public void endElement(String uri, String localName, String qName) throws SAXException {
             if (inAuthor && AUTHOR.equals(qName)) {
@@ -273,11 +278,13 @@ public class OAuth2Client {
             }
         }
 
+        /** @noinspection RedundantThrows*/
         @Override
         public void error(SAXParseException e) throws SAXException {
             Log.e(TAG, "error during parsing", e);
         }
 
+        /** @noinspection RedundantThrows*/
         @Override public void warning(SAXParseException e) throws SAXException {
             Log.w(TAG, "error during parsing", e);
         }

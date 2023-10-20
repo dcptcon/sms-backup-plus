@@ -2,8 +2,6 @@ package com.zegoggles.smssync.activity.auth;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -109,17 +107,15 @@ public class AccountManagerAuthActivity extends ThemeActivity {
     private void onAccountSelected(final Account account) {
         new AccessTokenProgress().show(getSupportFragmentManager(), null);
         accountManager.getAuthToken(account, AUTH_TOKEN_TYPE, null, this,
-                new AccountManagerCallback<Bundle>() {
-            public void run(AccountManagerFuture<Bundle> future) {
-                try {
-                    useToken(account, future.getResult().getString(KEY_AUTHTOKEN));
-                } catch (OperationCanceledException e) {
-                    onAccessDenied();
-                } catch (Exception e) {
-                    handleException(e);
-                }
-            }
-        }, null);
+                future -> {
+                    try {
+                        useToken(account, future.getResult().getString(KEY_AUTHTOKEN));
+                    } catch (OperationCanceledException e) {
+                        onAccessDenied();
+                    } catch (Exception e) {
+                        handleException(e);
+                    }
+                }, null);
     }
 
     private void onCanceled() {
@@ -156,6 +152,7 @@ public class AccountManagerAuthActivity extends ThemeActivity {
     public static class AccountDialogs extends Dialogs.BaseFragment {
         static final String ACCOUNTS = "accounts";
 
+        /** @noinspection DataFlowIssue*/
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Account[] accounts = (Account[]) getArguments().getParcelableArray(ACCOUNTS);
@@ -165,29 +162,16 @@ public class AccountManagerAuthActivity extends ThemeActivity {
             return new AlertDialog.Builder(getContext())
                 .setTitle(R.string.select_google_account)
                 .setIcon(getTinted(getResources(), R.drawable.ic_account_circle, colorStateList.getDefaultColor()))
-                .setSingleChoiceItems(getNames(accounts), checkedItem[0], new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        checkedItem[0] = which;
-                    }
-                })
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        ((AccountManagerAuthActivity)getActivity()).onAccountSelected(accounts[checkedItem[0]]);
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ((AccountManagerAuthActivity)getActivity()).onCanceled();
-                    }
-                })
+                .setSingleChoiceItems(getNames(accounts), checkedItem[0], (dialog, which) -> checkedItem[0] = which)
+                .setPositiveButton(android.R.string.ok, (dialogInterface, which) -> ((AccountManagerAuthActivity)getActivity()).onAccountSelected(accounts[checkedItem[0]]))
+                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> ((AccountManagerAuthActivity)getActivity()).onCanceled())
                 .create();
         }
 
         @Override
-        public void onCancel(DialogInterface dialog) {
+        public void onCancel(@NonNull DialogInterface dialog) {
             super.onCancel(dialog);
+            //noinspection DataFlowIssue
             ((AccountManagerAuthActivity)getActivity()).onCanceled();
         }
 

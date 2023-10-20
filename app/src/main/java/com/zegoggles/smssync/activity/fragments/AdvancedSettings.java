@@ -30,7 +30,6 @@ import com.zegoggles.smssync.contacts.Group;
 import com.zegoggles.smssync.mail.BackupImapStore;
 import com.zegoggles.smssync.mail.DataType;
 import com.zegoggles.smssync.preferences.AuthPreferences;
-import com.zegoggles.smssync.preferences.DataTypePreferences;
 
 import java.text.DateFormat;
 import java.util.Arrays;
@@ -83,38 +82,37 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             super.onCreatePreferences(bundle, rootKey);
+            //noinspection DataFlowIssue
             authPreferences = new AuthPreferences(getContext());
             connected = findPreference(CONNECTED.key);
             assert connected != null;
-            connected.setSummaryProvider(new Preference.SummaryProvider<TwoStatePreference>() {
-                @Override
-                public CharSequence provideSummary(TwoStatePreference preference) {
-                    final String username = authPreferences.getOauth2Username();
-                    if (preference.isEnabled()) {
-                        return preference.isChecked() && !TextUtils.isEmpty(username) ?
-                                getString(R.string.gmail_already_connected, username) :
-                                getString(R.string.gmail_needs_connecting);
-                    } else {
-                        return null;
-                    }
+            connected.setSummaryProvider((Preference.SummaryProvider<TwoStatePreference>) preference -> {
+                final String username = authPreferences.getOauth2Username();
+                if (preference.isEnabled()) {
+                    return preference.isChecked() && !TextUtils.isEmpty(username) ?
+                            getString(R.string.gmail_already_connected, username) :
+                            getString(R.string.gmail_needs_connecting);
+                } else {
+                    return null;
                 }
             });
-            connected.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                public boolean onPreferenceChange(Preference preference, Object change) {
-                    App.post(new AccountConnectionChangedEvent((Boolean) change));
-                    return false; // will be set later
-                }
+            connected.setOnPreferenceChangeListener((preference, change) -> {
+                App.post(new AccountConnectionChangedEvent((Boolean) change));
+                return false; // will be set later
             });
         }
 
+        /** @noinspection unused*/
         @Subscribe public void onAccountAdded(AccountAddedEvent event) {
             updateConnected();
         }
 
+        /** @noinspection unused*/
         @Subscribe public void onAccountRemoved(AccountRemovedEvent event) {
             updateConnected();
         }
 
+        /** @noinspection unused*/
         @Subscribe public void onSettingsReset(SettingsResetEvent event) {
             updateConnected();
         }
@@ -129,11 +127,12 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
         private CheckBoxPreference callLogPreference;
 
         @Override
-        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             callLogPreference = findPreference(CALLLOG.backupEnabledPreference);
         }
 
+        /** @noinspection DataFlowIssue*/
         @Override
         public void onResume() {
             super.onResume();
@@ -144,29 +143,19 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
             initGroups();
             registerValidImapFolderCheck();
             findPreference(MAX_ITEMS_PER_SYNC.key)
-                .setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        updateMaxItemsPerSync(newValue.toString());
-                        return true;
-                    }
+                .setOnPreferenceChangeListener((preference, newValue) -> {
+                    updateMaxItemsPerSync(newValue.toString());
+                    return true;
                 });
 
             addPreferenceListener(DataType.SMS.backupEnabledPreference, DataType.MMS.backupEnabledPreference);
 
-            callLogPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    return !(Boolean) newValue || checkCallLogPermissions();
-                }
-            });
+            callLogPreference.setOnPreferenceChangeListener((preference, newValue) -> !(Boolean) newValue || checkCallLogPermissions());
 
-            preferences.getDataTypePreferences().registerDataTypeListener(new DataTypePreferences.DataTypeListener() {
-                @Override
-                public void onChanged(DataType dataType, DataTypePreferences preferences) {
-                    if (dataType == DataType.CALLLOG) {
-                        findPreference(AdvancedSettings.Backup.CallLog.class.getName())
-                                .setEnabled(preferences.isBackupEnabled(dataType));
-                    }
+            preferences.getDataTypePreferences().registerDataTypeListener((dataType, preferences) -> {
+                if (dataType == DataType.CALLLOG) {
+                    findPreference(CallLog.class.getName())
+                            .setEnabled(preferences.isBackupEnabled(dataType));
                 }
             });
         }
@@ -177,6 +166,7 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
             preferences.getDataTypePreferences().registerDataTypeListener(null);
         }
 
+        /** @noinspection deprecation*/
         @Override
         public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -186,12 +176,14 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
             }
         }
 
+        /** @noinspection deprecation*/
         private boolean checkCallLogPermissions() {
             final Set<String> requiredPermissions = CALLLOG.checkPermissions(getContext());
 
             if (requiredPermissions.isEmpty()) {
                 return true;
             } else {
+                //noinspection ToArrayCallWithZeroLengthArrayArgument
                 requestPermissions(requiredPermissions.toArray(new String[requiredPermissions.size()]),
                     REQUEST_CALL_LOG_PERMISSIONS);
                 return false;
@@ -204,6 +196,7 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
 
         private void updateLastBackupTimes() {
             for (DataType type : DataType.values()) {
+                //noinspection DataFlowIssue
                 findPreference(type.backupEnabledPreference).setSummary(
                         getLastSyncText(preferences.getDataTypePreferences().getMaxSyncedDate(type))
                 );
@@ -220,19 +213,23 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
             final ListPreference groupPref = (ListPreference)
                     findPreference(BACKUP_CONTACT_GROUP.key);
 
+            //noinspection DataFlowIssue
             groupPref.setTitle(groupPref.getEntry() != null ? groupPref.getEntry() :
                     getString(R.string.ui_backup_contact_group_label));
         }
 
         private void registerValidImapFolderCheck() {
+            //noinspection DataFlowIssue
             findPreference(SMS.folderPreference)
                     .setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                        public boolean onPreferenceChange(Preference preference, final Object newValue) {
+                        /** @noinspection deprecation*/
+                        public boolean onPreferenceChange(@NonNull Preference preference, final Object newValue) {
                             return checkValidImapFolder(getFragmentManager(), newValue.toString());
                         }
                     });
         }
 
+        /** @noinspection DataFlowIssue*/
         private void initGroups() {
             final ListPreference preference = findPreference(BACKUP_CONTACT_GROUP.key);
             if (ContextCompat.checkSelfPermission(getContext(), READ_CONTACTS) == PERMISSION_GRANTED) {
@@ -251,7 +248,7 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
             private Preference folderPreference;
 
             @Override
-            public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 super.onViewCreated(view, savedInstanceState);
                 enabledPreference = findPreference(CALLLOG_SYNC_CALENDAR_ENABLED.key);
                 calendarPreference = findPreference(CALLLOG_SYNC_CALENDAR.key);
@@ -277,8 +274,9 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
 
             private void registerCalendarSyncEnabledCallback() {
                 enabledPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    /** @noinspection deprecation*/
                     @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
                         if (newValue == Boolean.TRUE && needCalendarPermission()) {
                             requestPermissions(new String[] {WRITE_CALENDAR}, REQUEST_CALENDAR_ACCESS);
                             return false;
@@ -289,6 +287,7 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
                 });
             }
 
+            /** @noinspection deprecation*/
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -300,6 +299,7 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
             }
 
             private boolean needCalendarPermission() {
+                //noinspection DataFlowIssue
                 return ContextCompat.checkSelfPermission(getContext(), WRITE_CALENDAR) != PERMISSION_GRANTED;
             }
 
@@ -311,13 +311,15 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
             private void initCalendars() {
                 if (needCalendarPermission()) return;
 
+                //noinspection DataFlowIssue
                 CalendarAccessor calendars = CalendarAccessor.Get.instance(getContext().getContentResolver());
                 initListPreference(calendarPreference, calendars.getCalendars(), false);
             }
 
             private void registerValidCallLogFolderCheck() {
                 folderPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    public boolean onPreferenceChange(Preference preference, final Object newValue) {
+                    /** @noinspection deprecation*/
+                    public boolean onPreferenceChange(@NonNull Preference preference, final Object newValue) {
                         return checkValidImapFolder(getFragmentManager(), newValue.toString());
                     }
                 });
@@ -330,12 +332,11 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
         public void onResume() {
             super.onResume();
             updateMaxItemsPerRestore(null);
+            //noinspection DataFlowIssue
             findPreference(MAX_ITEMS_PER_RESTORE.key)
-                    .setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                        public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            updateMaxItemsPerRestore(newValue.toString());
-                            return true;
-                        }
+                    .setOnPreferenceChangeListener((preference, newValue) -> {
+                        updateMaxItemsPerRestore(newValue.toString());
+                        return true;
                     });
         }
 
@@ -350,6 +351,7 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             super.onCreatePreferences(bundle, rootKey);
+            //noinspection DataFlowIssue
             authPreferences = new AuthPreferences(getContext());
         }
 
@@ -357,12 +359,11 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
         public void onResume() {
             super.onResume();
 
+            //noinspection DataFlowIssue
             findPreference(AuthPreferences.IMAP_PASSWORD)
-                    .setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                        public boolean onPreferenceChange(Preference preference, Object newValue) {
-                            authPreferences.setImapPassword(newValue.toString());
-                            return true;
-                        }
+                    .setOnPreferenceChangeListener((preference, newValue) -> {
+                        authPreferences.setImapPassword(newValue.toString());
+                        return true;
                     });
         }
     }

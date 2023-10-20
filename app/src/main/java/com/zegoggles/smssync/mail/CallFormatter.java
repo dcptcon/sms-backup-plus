@@ -62,7 +62,9 @@ public class CallFormatter {
     private int mapCallType(int callType) {
         switch (callType) {
             case CallLog.Calls.OUTGOING_TYPE: return R.string.call_outgoing;
-            case CallLog.Calls.INCOMING_TYPE: return R.string.call_incoming;
+            case CallLog.Calls.INCOMING_TYPE:
+                //noinspection DuplicateBranchesInSwitch
+                return R.string.call_incoming;
             case CallLog.Calls.MISSED_TYPE: return R.string.call_missed;
             case CallLog.Calls.REJECTED_TYPE: return R.string.call_rejected;
             case CallLog.Calls.VOICEMAIL_TYPE: return R.string.call_voicemail;
@@ -74,7 +76,9 @@ public class CallFormatter {
     private int mapTextCallType(int callType) {
         switch (callType) {
             case CallLog.Calls.OUTGOING_TYPE: return R.string.call_outgoing_text;
-            case CallLog.Calls.INCOMING_TYPE: return R.string.call_incoming_text;
+            case CallLog.Calls.INCOMING_TYPE:
+                //noinspection DuplicateBranchesInSwitch
+                return R.string.call_incoming_text;
             case CallLog.Calls.MISSED_TYPE: return R.string.call_missed_text;
             case CallLog.Calls.REJECTED_TYPE: return R.string.call_rejected_text;
             case CallLog.Calls.VOICEMAIL_TYPE: return R.string.call_voicemail_text;

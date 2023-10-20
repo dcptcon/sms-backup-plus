@@ -6,6 +6,8 @@ import com.zegoggles.smssync.mail.DataType;
 
 import static com.zegoggles.smssync.service.state.SmsSyncState.INITIAL;
 
+import androidx.annotation.NonNull;
+
 public class RestoreState extends State {
     /** items currently restored */
     public final int currentRestoredCount;
@@ -37,6 +39,7 @@ public class RestoreState extends State {
         this.duplicateCount = duplicateCount;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "RestoreStateChanged{" +

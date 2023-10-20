@@ -30,12 +30,10 @@ import com.fsck.k9.mail.ssl.DefaultTrustedSocketFactory;
 import com.fsck.k9.mail.ssl.TrustedSocketFactory;
 import com.fsck.k9.mail.store.imap.ImapFolder;
 import com.fsck.k9.mail.store.imap.ImapMessage;
-import com.fsck.k9.mail.store.imap.ImapResponse;
 import com.fsck.k9.mail.store.imap.ImapSearcher;
 import com.fsck.k9.mail.store.imap.ImapStore;
 import com.zegoggles.smssync.preferences.DataTypePreferences;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,7 +51,7 @@ import static java.util.Collections.sort;
 import static java.util.Locale.ENGLISH;
 
 public class BackupImapStore extends ImapStore {
-    private final Map<DataType, BackupFolder> openFolders = new HashMap<DataType, BackupFolder>();
+    private final Map<DataType, BackupFolder> openFolders = new HashMap<>();
 
     public BackupImapStore(final Context context, final String uri,
                            boolean trustAllCertificates) throws MessagingException {
@@ -86,6 +84,7 @@ public class BackupImapStore extends ImapStore {
         openFolders.clear();
     }
 
+    @NonNull
     @Override public String toString() {
         return "BackupImapStore{" +
                 "uri=" + getStoreUriForLogging() +
@@ -137,7 +136,7 @@ public class BackupImapStore extends ImapStore {
         return mStoreConfig.getStoreUri();
     }
 
-    public class BackupFolder extends ImapFolder {
+    public static class BackupFolder extends ImapFolder {
         private final DataType type;
 
         BackupFolder(ImapStore store, String name, DataType type) {
@@ -151,12 +150,7 @@ public class BackupImapStore extends ImapStore {
                 Log.v(TAG, String.format(ENGLISH, "getMessages(%d, %b, %s)", max, flagged, since));
 
             final List<ImapMessage> messages;
-            final ImapSearcher searcher = new ImapSearcher() {
-                @Override
-                public List<ImapResponse> search() throws IOException, MessagingException {
-                    return executeSimpleCommand(buildSearchQuery(type, since, flagged));
-                }
-            };
+            final ImapSearcher searcher = () -> executeSimpleCommand(buildSearchQuery(type, since, flagged));
 
             final List<ImapMessage> msgs = search(searcher, null);
 
@@ -174,7 +168,7 @@ public class BackupImapStore extends ImapStore {
                 //Debug.stopMethodTracing();
                 if (LOCAL_LOGV) Log.v(TAG, "Sorting done");
 
-                messages = new ArrayList<ImapMessage>(max);
+                messages = new ArrayList<>(max);
                 messages.addAll(msgs.subList(0, max));
             } else {
                 messages = msgs;
@@ -190,7 +184,9 @@ public class BackupImapStore extends ImapStore {
                     .append(' ')
                     .append(String.format(ENGLISH, "(HEADER %s \"%s\")", DATATYPE.toUpperCase(ENGLISH), dataType))
                     .append(" UNDELETED");
-            if (since != null) sb.append(" SENTSINCE ").append(RFC3501_DATE.get().format(since));
+            if (since != null)
+                //noinspection DataFlowIssue
+                sb.append(" SENTSINCE ").append(RFC3501_DATE.get().format(since));
             if (flagged) sb.append(" FLAGGED");
             return sb.toString().trim();
         }

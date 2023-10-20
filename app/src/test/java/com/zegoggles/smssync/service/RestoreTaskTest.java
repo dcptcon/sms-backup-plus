@@ -51,8 +51,10 @@ public class RestoreTaskTest {
     public void before() throws MessagingException {
         initMocks(this);
         config = new RestoreConfig(store, 0, true, false, false, -1, 0);
+        //noinspection deprecation
         when(service.getApplicationContext()).thenReturn(RuntimeEnvironment.application);
         when(service.getState()).thenReturn(state);
+        //noinspection deprecation
         when(service.getPreferences()).thenReturn(new Preferences(RuntimeEnvironment.application));
 
         when(store.getFolder(any(DataType.class), any(DataTypePreferences.class))).thenReturn(folder);
@@ -79,7 +81,7 @@ public class RestoreTaskTest {
     @Test
     public void shouldRestoreItems() throws Exception {
         Date now = new Date();
-        List<ImapMessage> messages = new ArrayList<ImapMessage>();
+        List<ImapMessage> messages = new ArrayList<>();
         ContentValues values = new ContentValues();
         values.put(Telephony.TextBasedSmsColumns.TYPE, Telephony.TextBasedSmsColumns.MESSAGE_TYPE_INBOX);
         values.put(Telephony.TextBasedSmsColumns.DATE, now.getTime());

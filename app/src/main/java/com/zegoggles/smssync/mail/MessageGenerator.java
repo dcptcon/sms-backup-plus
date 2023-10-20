@@ -101,7 +101,8 @@ class MessageGenerator {
         Date sentDate;
         try {
             // TODO: should probably be TextBasedSmsColumns.DATE_SENT
-            sentDate = new Date(Long.valueOf(msgMap.get(Telephony.TextBasedSmsColumns.DATE)));
+            //noinspection DataFlowIssue
+            sentDate = new Date(Long.parseLong(msgMap.get(Telephony.TextBasedSmsColumns.DATE)));
         } catch (NumberFormatException n) {
             Log.e(TAG, ERROR_PARSING_DATE, n);
             sentDate = new Date();
@@ -138,7 +139,8 @@ class MessageGenerator {
 
         Date sentDate;
         try {
-            sentDate = new Date(1000 * Long.valueOf(msgMap.get(Telephony.BaseMmsColumns.DATE)));
+            //noinspection DataFlowIssue
+            sentDate = new Date(1000 * Long.parseLong(msgMap.get(Telephony.BaseMmsColumns.DATE)));
         } catch (NumberFormatException n) {
             Log.e(TAG, ERROR_PARSING_DATE, n);
             sentDate = new Date();
@@ -195,7 +197,8 @@ class MessageGenerator {
         setBody(msg, new TextBody(callFormatter.format(callType, record.getNumber(), duration)));
         Date sentDate;
         try {
-            sentDate = new Date(Long.valueOf(msgMap.get(CallLog.Calls.DATE)));
+            //noinspection DataFlowIssue
+            sentDate = new Date(Long.parseLong(msgMap.get(CallLog.Calls.DATE)));
         } catch (NumberFormatException n) {
             Log.e(TAG, ERROR_PARSING_DATE, n);
             sentDate = new Date();
@@ -210,6 +213,7 @@ class MessageGenerator {
                 context.getString(type.withField, record.getName());
     }
 
+    /** @noinspection SameParameterValue*/
     private boolean includeInBackup(DataType type, Iterable<PersonRecord> records) {
         for (PersonRecord r : records) {
             if (includePersonInBackup(r, type)) {
@@ -228,7 +232,7 @@ class MessageGenerator {
 
     private static int toInt(String s) {
         try {
-             return Integer.valueOf(s);
+             return Integer.parseInt(s);
         } catch (NumberFormatException e) {
             return -1;
         }

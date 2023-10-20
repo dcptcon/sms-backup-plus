@@ -36,9 +36,11 @@ public class BackupJobsTest {
 
     @Before public void before() {
         initMocks(this);
+        //noinspection deprecation
         ShadowPackageManager pm = shadowOf(RuntimeEnvironment.application.getPackageManager());
 
         Intent executeIntent = new Intent("com.firebase.jobdispatcher.ACTION_EXECUTE");
+        //noinspection deprecation
         executeIntent.setClassName(RuntimeEnvironment.application, "com.zegoggles.smssync.service.SmsJobService");
 
         ResolveInfo ri = new ResolveInfo();
@@ -47,7 +49,9 @@ public class BackupJobsTest {
         ri.serviceInfo = si;
         ri.isDefault = true;
 
+        //noinspection deprecation
         pm.addResolveInfoForIntent(executeIntent, ri);
+        //noinspection deprecation
         subject = new BackupJobs(RuntimeEnvironment.application, preferences);
         when(preferences.getDataTypePreferences()).thenReturn(dataTypePreferences);
     }
@@ -66,6 +70,7 @@ public class BackupJobsTest {
 
     @Test public void shouldScheduleContentUriTriggerForSMS() throws Exception {
         Job job = subject.scheduleContentTriggerJob();
+        //noinspection DataFlowIssue
         assertThat(job.getTrigger()).isInstanceOf(JobTrigger.ContentUriTrigger.class);
 
         JobTrigger.ContentUriTrigger contentUriTrigger = (JobTrigger.ContentUriTrigger) job.getTrigger();
@@ -77,6 +82,7 @@ public class BackupJobsTest {
         when(dataTypePreferences.isBackupEnabled(CALLLOG)).thenReturn(true);
 
         Job job = subject.scheduleContentTriggerJob();
+        //noinspection DataFlowIssue
         assertThat(job.getTrigger()).isInstanceOf(JobTrigger.ContentUriTrigger.class);
 
         JobTrigger.ContentUriTrigger contentUriTrigger = (JobTrigger.ContentUriTrigger) job.getTrigger();

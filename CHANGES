@@ -20,7 +20,6 @@
   * Optionally trigger a backup after incoming/outgoing calls
   * Use JobManager to run backups in the background (#572, #810, #822)
   * Replaced WebView auth with browser (#767)
-  * Replaced pay-me with Play Billing Library
   * Gradle build support (#638)
   * Improve restore experience (#586)
   * Fixed unquoted blank in local part of email address (#595)
@@ -117,7 +116,7 @@
 
   * Added AccountManager support
   * Translation updates (fr/cn)
-  * Removed donation via paypal, added donation via in-app billing V3
+  * Removed donation
 
 == 1.4.6 (1407) 09-06-2012
 

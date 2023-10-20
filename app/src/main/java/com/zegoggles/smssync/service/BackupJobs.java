@@ -16,6 +16,7 @@
 
 package com.zegoggles.smssync.service;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
@@ -63,6 +64,7 @@ public class BackupJobs {
         this(context, new Preferences(context));
     }
 
+    @SuppressLint("Deprecated")
     BackupJobs(Context context, Preferences preferences) {
         this.preferences = preferences;
         firebaseJobDispatcher = new FirebaseJobDispatcher(
@@ -175,7 +177,7 @@ public class BackupJobs {
     }
 
     private @NonNull List<ObservedUri> observedUris() {
-        List<ObservedUri> observedUris = new ArrayList<ObservedUri>();
+        List<ObservedUri> observedUris = new ArrayList<>();
         observedUris.add(new ObservedUri(SMS_PROVIDER, FLAG_NOTIFY_FOR_DESCENDANTS));
         if (preferences.getDataTypePreferences().isBackupEnabled(DataType.CALLLOG) && preferences.isCallLogBackupAfterCallEnabled()) {
             observedUris.add(new ObservedUri(CALLLOG_PROVIDER, FLAG_NOTIFY_FOR_DESCENDANTS));
@@ -193,6 +195,7 @@ public class BackupJobs {
     }
 
     private int[] jobConstraints(BackupType backupType) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (backupType) {
             case BROADCAST_INTENT: return new int[0];
             default:

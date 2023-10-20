@@ -25,7 +25,7 @@ public class ConversionResultTest {
         ConversionResult result = new ConversionResult(DataType.SMS);
         Message message = mock(Message.class);
         when(message.getHeader(anyString())).thenReturn(new String[] {});
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         result.add(message, map);
         assertThat(result.isEmpty()).isFalse();
         assertThat(result.getMaxDate()).isEqualTo(-1);
@@ -35,7 +35,7 @@ public class ConversionResultTest {
         ConversionResult result = new ConversionResult(DataType.SMS);
         Message message = mock(Message.class);
         when(message.getHeader(Headers.DATE)).thenReturn(new String[] { "12345" });
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         result.add(message, map);
         assertThat(result.isEmpty()).isFalse();
         assertThat(result.getMaxDate()).isEqualTo(12345);
@@ -45,7 +45,7 @@ public class ConversionResultTest {
         ConversionResult result = new ConversionResult(DataType.SMS);
         Message message = mock(Message.class);
         when(message.getHeader(Headers.DATE)).thenReturn(new String[] { "foo" });
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         result.add(message, map);
         assertThat(result.isEmpty()).isFalse();
         assertThat(result.getMaxDate()).isEqualTo(-1);
@@ -56,7 +56,7 @@ public class ConversionResultTest {
         Message message = mock(Message.class);
         when(message.getHeader(Headers.DATE)).thenReturn(new String[] { "12345" });
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         result.add(message, map);
         assertThat(result.isEmpty()).isFalse();
         assertThat(result.getMaxDate()).isEqualTo(12345);

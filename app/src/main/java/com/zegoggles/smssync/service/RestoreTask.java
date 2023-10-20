@@ -47,9 +47,9 @@ import static com.zegoggles.smssync.service.state.SmsSyncState.UPDATING_THREADS;
 
 class RestoreTask extends AsyncTask<RestoreConfig, RestoreState, RestoreState> {
     private static final String ERROR = "error";
-    private Set<String> smsIds = new HashSet<String>();
-    private Set<String> callLogIds = new HashSet<String>();
-    private Set<String> uids = new HashSet<String>();
+    private final Set<String> smsIds = new HashSet<>();
+    private final Set<String> callLogIds = new HashSet<>();
+    private final Set<String> uids = new HashSet<>();
 
     @SuppressLint("StaticFieldLeak")
     private final SmsRestoreService service;
@@ -74,6 +74,7 @@ class RestoreTask extends AsyncTask<RestoreConfig, RestoreState, RestoreState> {
         App.register(this);
     }
 
+    /** @noinspection unused*/
     @Subscribe public void canceled(CancelEvent canceled) {
         cancel(canceled.mayInterruptIfRunning());
     }
@@ -104,7 +105,7 @@ class RestoreTask extends AsyncTask<RestoreConfig, RestoreState, RestoreState> {
 
             publishProgress(CALC);
 
-            final List<Message> msgs = new ArrayList<Message>();
+            final List<Message> msgs = new ArrayList<>();
 
             if (config.restoreSms) {
                 msgs.addAll(imapStore.getFolder(SMS, preferences.getDataTypePreferences()).getMessages(config.maxRestore, config.restoreOnlyStarred, null));
@@ -164,7 +165,7 @@ class RestoreTask extends AsyncTask<RestoreConfig, RestoreState, RestoreState> {
                     // since the auth params on it are immutable
                     return restore(config.retryWithStore(currentRestoredItem, service.getBackupImapStore()));
                 } catch (MessagingException ignored) {
-                    Log.w(TAG, ignored);
+                    /*Log.w(TAG, ignored);*/
                 } catch (TokenRefreshException refreshException) {
                     Log.w(TAG, refreshException);
                 }

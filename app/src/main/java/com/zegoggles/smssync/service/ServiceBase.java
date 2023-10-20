@@ -133,6 +133,7 @@ public abstract class ServiceBase extends Service {
         return PowerManager.PARTIAL_WAKE_LOCK;
     }
 
+    /** @noinspection SameReturnValue*/
     private int getWifiLockType() {
         return WifiManager.WIFI_MODE_FULL_HIGH_PERF;
     }
@@ -148,6 +149,7 @@ public abstract class ServiceBase extends Service {
         }
     }
 
+    /** @noinspection unused*/
     protected boolean isBackgroundTask() {
         return false;
     }
@@ -215,6 +217,7 @@ public abstract class ServiceBase extends Service {
     @SuppressWarnings("deprecation")
     private boolean isConnectedViaWifi_pre_SDK21() {
         WifiManager wifiManager = getWifiManager();
+        //noinspection DataFlowIssue
         return (wifiManager != null &&
                 wifiManager.isWifiEnabled() &&
                 getConnectivityManager().getNetworkInfo(TYPE_WIFI) != null &&

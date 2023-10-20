@@ -45,7 +45,7 @@ public abstract class State {
             final String underlying = exception.getCause() != null ? exception.getCause().toString() : null;
             final StringBuilder message = new StringBuilder().append(msg)
                     .append(" (exception: ")
-                    .append(exception.toString());
+                    .append(exception/*.toString()*/);
 
             if (!TextUtils.isEmpty(underlying)) {
                 message.append(", underlying=").append(underlying);
@@ -73,6 +73,7 @@ public abstract class State {
         return !isInitialState() && !isRunning();
     }
 
+    /** @noinspection unused*/
     public abstract State transition(SmsSyncState newState, Exception exception);
 
     public boolean isAuthException() {
@@ -109,6 +110,7 @@ public abstract class State {
     public String[] getMissingPermissions() {
         if (isPermissionException()) {
             MissingPermissionException mpe = (MissingPermissionException)exception;
+            //noinspection ToArrayCallWithZeroLengthArrayArgument
             return mpe.permissions.toArray(new String[mpe.permissions.size()]);
         } else {
             return new String[0];

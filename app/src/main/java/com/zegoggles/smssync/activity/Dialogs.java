@@ -18,11 +18,9 @@ package com.zegoggles.smssync.activity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,6 +53,7 @@ import static com.zegoggles.smssync.activity.MainActivity.REQUEST_WEB_AUTH;
 import static com.zegoggles.smssync.activity.events.PerformAction.Actions.Backup;
 import static com.zegoggles.smssync.activity.events.PerformAction.Actions.BackupSkip;
 
+/** @noinspection unused*/
 public class Dialogs {
     public enum Type {
         FIRST_SYNC(FirstSync.class),
@@ -79,6 +78,7 @@ public class Dialogs {
         }
 
         public BaseFragment instantiate(FragmentManager fragmentManager, @Nullable Bundle args) {
+            //noinspection DataFlowIssue
             Fragment fragment = fragmentManager.getFragmentFactory().instantiate(
                     getClass().getClassLoader(),
                     this.fragment.getName());
@@ -88,7 +88,9 @@ public class Dialogs {
     }
 
     public static class BaseFragment extends AppCompatDialogFragment {
+        /** @noinspection SameParameterValue*/
         Dialog createMessageDialog(String title, String msg, int icon) {
+            //noinspection DataFlowIssue
             return new AlertDialog.Builder(getContext())
                 .setTitle(title)
                 .setMessage(msg)
@@ -112,15 +114,11 @@ public class Dialogs {
         static final String MAX_ITEMS_PER_SYNC = "max_items_per_sync";
         static final int SKIP_BUTTON = BUTTON_NEGATIVE;
 
+        /** @noinspection DataFlowIssue*/
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             OnClickListener firstSyncListener =
-                    new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            App.post(which == SKIP_BUTTON ? BackupSkip : Backup);
-                        }
-                    };
+                    (dialog, which) -> App.post(which == SKIP_BUTTON ? BackupSkip : Backup);
             final int maxItems = getArguments().getInt(MAX_ITEMS_PER_SYNC);
             final String syncMsg = maxItems < 0 ?
                     getString(R.string.ui_dialog_first_sync_msg) :
@@ -149,6 +147,7 @@ public class Dialogs {
         private static final String ABOUT_HTML = "file:///android_asset/about.html";
         private WebView webView;
 
+        /** @noinspection DataFlowIssue*/
         @Override @NonNull @SuppressLint("InflateParams")
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
             final View contentView = getActivity().getLayoutInflater().inflate(R.layout.about_dialog, null, false);
@@ -165,8 +164,7 @@ public class Dialogs {
                 @Override @SuppressWarnings("deprecation") public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
                     if (scrollPosition > 0 &&
-                        ABOUT_HTML.equals(url) &&
-                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                        ABOUT_HTML.equals(url)) {
                         view.setScrollY((int) (view.getContentHeight() * view.getScale() * scrollPosition));
                     }
                 }
@@ -181,7 +179,7 @@ public class Dialogs {
         }
 
         @Override @SuppressWarnings("deprecation")
-        public void onSaveInstanceState(Bundle outState) {
+        public void onSaveInstanceState(@NonNull Bundle outState) {
             super.onSaveInstanceState(outState);
             final float position = webView.getScrollY() / (webView.getContentHeight() * webView.getScale());
             outState.putFloat(SCROLL_POSITION, position);
@@ -191,14 +189,11 @@ public class Dialogs {
     public static class Reset extends BaseFragment {
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            //noinspection DataFlowIssue
             return new AlertDialog.Builder(getContext())
                 .setIcon(ic_dialog_alert)
                 .setTitle(R.string.ui_dialog_reset_title)
-                .setPositiveButton(ok, new OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        App.post(new SettingsResetEvent());
-                    }
-                })
+                .setPositiveButton(ok, (dialog, which) -> App.post(new SettingsResetEvent()))
                 .setMessage(R.string.ui_dialog_reset_message)
                 .setNegativeButton(cancel, null)
                 .create();
@@ -208,16 +203,13 @@ public class Dialogs {
     public static class Disconnect extends BaseFragment {
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            //noinspection DataFlowIssue
             return new AlertDialog.Builder(getContext())
                 .setIcon(ic_dialog_alert)
                 .setTitle(R.string.ui_dialog_confirm_action_title)
                 .setMessage(R.string.ui_dialog_disconnect_msg)
                 .setNegativeButton(cancel, null)
-                .setPositiveButton(ok, new OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        App.post(new AccountRemovedEvent());
-                    }
-                }).create();
+                .setPositiveButton(ok, (dialog, which) -> App.post(new AccountRemovedEvent())).create();
         }
     }
 
@@ -248,7 +240,7 @@ public class Dialogs {
 
     public static class OAuth2AccessTokenProgress extends AccessTokenProgress {
         @Override
-        public void onAttach(Context context) {
+        public void onAttach(@NonNull Context context) {
             super.onAttach(context);
             App.register(this);
         }
@@ -267,15 +259,12 @@ public class Dialogs {
     public static class AccountManagerTokenError extends BaseFragment {
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            //noinspection DataFlowIssue
             return new AlertDialog.Builder(getContext())
                     .setTitle(R.string.status_unknown_error)
                     .setIcon(ic_dialog_alert)
                     .setMessage(R.string.ui_dialog_account_manager_token_error)
-                    .setPositiveButton(yes, new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            App.post(new FallbackAuthEvent(false));
-                        }
-                    })
+                    .setPositiveButton(yes, (dialog, which) -> App.post(new FallbackAuthEvent(false)))
                     .setNegativeButton(android.R.string.no, null)
                     .create();
         }
@@ -284,17 +273,17 @@ public class Dialogs {
     public static class WebConnect extends BaseFragment {
         static final String INTENT = "intent";
 
+        /** @noinspection DataFlowIssue*/
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             return new AlertDialog.Builder(getContext())
                 .setTitle(null)
                 .setMessage(getString(R.string.ui_dialog_connect_msg, getString(R.string.app_name)))
                 .setNegativeButton(cancel, null)
-                .setPositiveButton(ok, new OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        final Intent intent = getArguments().getParcelable(INTENT);
-                        getActivity().startActivityForResult(intent, REQUEST_WEB_AUTH);
-                    }
+                .setPositiveButton(ok, (dialog, which) -> {
+                    final Intent intent = getArguments().getParcelable(INTENT);
+                    //noinspection deprecation
+                    getActivity().startActivityForResult(intent, REQUEST_WEB_AUTH);
                 }).create();
         }
     }
@@ -309,15 +298,12 @@ public class Dialogs {
     public static class ConfirmAction extends BaseFragment {
         static final String ACTION = "action";
 
+        /** @noinspection DataFlowIssue*/
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             return new AlertDialog.Builder(getContext())
                 .setTitle(R.string.ui_dialog_confirm_action_title)
-                .setPositiveButton(ok, new OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        App.post(new PerformAction(Actions.valueOf(getArguments().getString(ACTION)), false));
-                    }
-                })
+                .setPositiveButton(ok, (dialog, which) -> App.post(new PerformAction(Actions.valueOf(getArguments().getString(ACTION)), false)))
                 .setMessage(R.string.ui_dialog_confirm_action_msg)
                 .setIcon(ic_dialog_alert)
                 .setNegativeButton(cancel, null)
@@ -328,14 +314,13 @@ public class Dialogs {
     public static class SmsRequestDefaultPackage extends BaseFragment {
         @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            //noinspection DataFlowIssue
             return new AlertDialog.Builder(getContext())
                 .setTitle(R.string.ui_dialog_sms_default_package_change_title)
                 .setIcon(ic_dialog_info)
-                .setPositiveButton(ok, new OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (getActivity() instanceof MainActivity) {
-                            ((MainActivity)getActivity()).requestDefaultSmsPackageChange();
-                        }
+                .setPositiveButton(ok, (dialog, which) -> {
+                    if (getActivity() instanceof MainActivity) {
+                        ((MainActivity)getActivity()).requestDefaultSmsPackageChange();
                     }
                 })
                 .setMessage(R.string.ui_dialog_sms_default_package_change_msg)

@@ -15,6 +15,7 @@ public class CallFormatterTest {
 
     @Before
     public void before() {
+        //noinspection deprecation
         formatter = new CallFormatter(RuntimeEnvironment.application.getResources());
     }
 

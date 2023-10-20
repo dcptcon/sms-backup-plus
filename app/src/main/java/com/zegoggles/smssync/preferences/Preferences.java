@@ -97,8 +97,8 @@ public class Preferences {
         CONFIRM_ACTION("confirm_action"),
         NOTIFICATIONS("notifications"),
         FIRST_USE("first_use"),
-        IMAP_SETTINGS("imap_settings"),
-        DONATE("donate"),
+        /** @noinspection unused*/ IMAP_SETTINGS("imap_settings"),
+        /** @noinspection unused*/ DONATE("donate"),
         BACKUP_SETTINGS_SCREEN("com.zegoggles.smssync.activity.fragments.AutoBackupSettings"),
         SMS_DEFAULT_PACKAGE("sms_default_package"),
         SMS_DEFAULT_PACKAGE_CHANGE_SEEN("sms_default_package_change_seen"),
@@ -188,7 +188,7 @@ public class Preferences {
             String s = preferences.getString(key, null);
             if (s == null) return def;
 
-            return Integer.valueOf(s);
+            return Integer.parseInt(s);
         } catch (NumberFormatException e) {
             return def;
         }

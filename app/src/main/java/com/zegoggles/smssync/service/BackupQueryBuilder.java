@@ -152,6 +152,7 @@ class BackupQueryBuilder {
         final Set<Long> ids = group.getRawIds();
 
         if (LOCAL_LOGV) Log.v(TAG, "only selecting contacts matching " + ids);
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         return String.format(Locale.ENGLISH, " AND (%s = %d OR %s IN (%s))",
             Telephony.TextBasedSmsColumns.TYPE,
             Telephony.TextBasedSmsColumns.MESSAGE_TYPE_SENT,

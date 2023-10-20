@@ -30,6 +30,7 @@ public class BackupQueryBuilderTest {
         builder = new BackupQueryBuilder(dataTypePreferences);
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildQueryForSMS() throws Exception {
         BackupQueryBuilder.Query query = builder.buildQueryForDataType(SMS, null, 200);
 
@@ -40,6 +41,7 @@ public class BackupQueryBuilderTest {
         assertThat(query.sortOrder).isEqualTo("date LIMIT 200");
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildQueryForSMSIncludingContactGroup() throws Exception {
         ContactGroupIds ids = new ContactGroupIds();
         ids.add(1L, 20L);
@@ -53,6 +55,7 @@ public class BackupQueryBuilderTest {
         assertThat(query.sortOrder).isEqualTo("date LIMIT 200");
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildQueryForMMS() throws Exception {
         BackupQueryBuilder.Query query = builder.buildQueryForDataType(MMS, null, 200);
 
@@ -63,6 +66,7 @@ public class BackupQueryBuilderTest {
         assertThat(query.sortOrder).isEqualTo("date LIMIT 200");
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildQueryForMMSWithSyncedDate() throws Exception {
         long nowInSecs = System.currentTimeMillis();
 
@@ -76,6 +80,7 @@ public class BackupQueryBuilderTest {
         assertThat(query.sortOrder).isEqualTo("date LIMIT 200");
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildQueryForCallLog() throws Exception {
         BackupQueryBuilder.Query query = builder.buildQueryForDataType(CALLLOG, null, 200);
 
@@ -86,6 +91,7 @@ public class BackupQueryBuilderTest {
         assertThat(query.sortOrder).isEqualTo("date LIMIT 200");
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildMostRecentQueryForSMS() throws Exception {
         BackupQueryBuilder.Query query = builder.buildMostRecentQueryForDataType(SMS);
         assertThat(query.uri).isEqualTo(Uri.parse("content://sms"));
@@ -95,6 +101,7 @@ public class BackupQueryBuilderTest {
         assertThat(query.sortOrder).isEqualTo("date DESC LIMIT 1");
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildMostRecentQueryForMMS() throws Exception {
         BackupQueryBuilder.Query query = builder.buildMostRecentQueryForDataType(MMS);
         assertThat(query.uri).isEqualTo(Uri.parse("content://mms"));
@@ -104,6 +111,7 @@ public class BackupQueryBuilderTest {
         assertThat(query.sortOrder).isEqualTo("date DESC LIMIT 1");
     }
 
+    /** @noinspection DataFlowIssue*/
     @Test public void shouldBuildMostRecentQueryForCallLog() throws Exception {
         BackupQueryBuilder.Query query = builder.buildMostRecentQueryForDataType(CALLLOG);
         assertThat(query.uri).isEqualTo(Uri.parse("content://call_log/calls"));
