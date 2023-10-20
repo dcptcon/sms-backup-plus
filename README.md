@@ -29,13 +29,7 @@ Main features/improvements:
 
 Tested with Android 4.x (Ice Cream Sandwich) - 10.x. (Q)
 
-SMS Backup+ is available for free in the [Google Play Store] and on [F-Droid],
-there will never be a pro / paid version.
-
-But if you find the app useful and want to support its development you can make a donation
-using the secure in-app Play Store payment mechanism.
-
-Also make sure to read the [Privacy Policy][].
+Make sure to read the [Privacy Policy][].
 
 ## Usage
 
