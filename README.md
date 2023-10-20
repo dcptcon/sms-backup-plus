@@ -440,9 +440,6 @@ repository and submit a [pull request][About pull requests].
 
 This application is released under the terms of the [Apache License, Version 2.0][].
 
-[Build Status]: http://travis-ci.com/jberkel/sms-backup-plus
-[Build Status SVG]: https://api.travis-ci.com/jberkel/sms-backup-plus.svg?branch=master
-
 [XOAuth2]: https://developers.google.com/gmail/imap/xoauth2-protocol
 [changed their API policy]: https://cloud.google.com/blog/products/g-suite/elevating-user-trust-in-our-api-ecosystems
 [sensitivity scopes]: https://developers.google.com/gmail/api/auth/scopes
@@ -456,10 +453,10 @@ This application is released under the terms of the [Apache License, Version 2.0
 [F-Droid]: https://f-droid.org/packages/com.zegoggles.smssync/
 
 [Use IMAP to check Gmail on other email clients]: https://support.google.com/mail/answer/7126229?hl=en
-[converationviewoff]: https://raw.github.com/jberkel/sms-backup-plus/gh-pages/screenshots/soundcloud.com-mail-settings-jan-soundcloud.com.jpg
-[imapenableshot]: https://raw.github.com/jberkel/sms-backup-plus/gh-pages/screenshots/enable_imap.png
-[showimap]: https://raw.github.com/jberkel/sms-backup-plus/gh-pages/screenshots/show_imap.png
-[strings.xml]: https://github.com/jberkel/sms-backup-plus/raw/master/app/src/main/res/values/strings.xml
+[converationviewoff]: https://raw.github.com/henrichg/sms-backup-plus/gh-pages/screenshots/soundcloud.com-mail-settings-jan-soundcloud.com.jpg
+[imapenableshot]: https://raw.github.com/henrichg/sms-backup-plus/gh-pages/screenshots/enable_imap.png
+[showimap]: https://raw.github.com/henrichg/sms-backup-plus/gh-pages/screenshots/show_imap.png
+[strings.xml]: https://github.com/henrichg/sms-backup-plus/raw/master/app/src/main/res/values/strings.xml
 [Tasker]: https://tasker.joaoapps.com/
 [Authorized Access to your Google Account]: https://security.google.com/settings/security/permissions
 [Google+ community]: https://plus.google.com/communities/113290889178902750997
@@ -468,8 +465,8 @@ This application is released under the terms of the [Apache License, Version 2.0
 [Github issues]: https://github.com/henrichg/sms-backup-plus/issues
 [About pull requests]: https://help.github.com/articles/about-pull-requests/
 
-[smsbackup_screenshot_holo]: https://raw.github.com/jberkel/sms-backup-plus/gh-pages/screenshots/smsbackup_holo_cropped.png
-[smsbackup_screenshot_material]: https://raw.github.com/jberkel/sms-backup-plus/gh-pages/screenshots/smsbackup_material_cropped.png
+[smsbackup_screenshot_holo]: https://raw.github.com/henrichg/sms-backup-plus/gh-pages/screenshots/smsbackup_holo_cropped.png
+[smsbackup_screenshot_material]: https://raw.github.com/henrichg/sms-backup-plus/gh-pages/screenshots/smsbackup_material_cropped.png
 
 [Apache License, Version 2.0]: http://www.apache.org/licenses/LICENSE-2.0.html
 [Privacy Policy]: https://github.com/henrichg/sms-backup-plus/privacy-policy/
