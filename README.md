@@ -2,6 +2,7 @@
 
 ### Forked version of original SMS Backup+ - https://github.com/jberkel/sms-backup-plus
 In this fork is fixed not working broadcast "com.zegoggles.smssync.BACKUP".
+Supprted are devices with Android 8+.
 
 ---------------------
 ## Description
