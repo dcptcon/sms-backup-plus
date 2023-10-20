@@ -1,7 +1,6 @@
 # SMS Backup+ <img src="https://raw.githubusercontent.com/jberkel/sms-backup-plus/master/metadata/play/assets/sms-backup.svg?sanitize=true" height="50px" alt="SMS Backup+ logo"/>
 
 ### Forked version of original SMS Backup+ - https://github.com/jberkel/sms-backup-plus
-Original SMS Backup+ is not more developed, support is ended.
 In this fork is fixed not working broadcast "com.zegoggles.smssync.BACKUP".
 
 ---------------------
