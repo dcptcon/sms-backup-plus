@@ -476,16 +476,13 @@ This application is released under the terms of the [Apache License, Version 2.0
 [Authorized Access to your Google Account]: https://security.google.com/settings/security/permissions
 [Google+ community]: https://plus.google.com/communities/113290889178902750997
 [Play Store beta page]: https://play.google.com/apps/testing/com.zegoggles.smssync
-[Github releases]: https://github.com/jberkel/sms-backup-plus/releases
-[Github issues]: http://github.com/jberkel/sms-backup-plus/issues
+[Github releases]: https://github.com/henrichg/sms-backup-plus/releases
+[Github issues]: https://github.com/henrichg/sms-backup-plus/issues
 [About pull requests]: https://help.github.com/articles/about-pull-requests/
 
 [smsbackup_screenshot_holo]: https://raw.github.com/jberkel/sms-backup-plus/gh-pages/screenshots/smsbackup_holo_cropped.png
 [smsbackup_screenshot_material]: https://raw.github.com/jberkel/sms-backup-plus/gh-pages/screenshots/smsbackup_material_cropped.png
 
 [Apache License, Version 2.0]: http://www.apache.org/licenses/LICENSE-2.0.html
-[Privacy Policy]: https://jberkel.github.io/sms-backup-plus/privacy-policy/
+[Privacy Policy]: https://github.com/henrichg/sms-backup-plus/privacy-policy/
 
-[516]: https://github.com/jberkel/sms-backup-plus/issues/516
-[564]: https://github.com/jberkel/sms-backup-plus/issues/564
-[841]: https://github.com/jberkel/sms-backup-plus/issues/841
