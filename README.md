@@ -376,23 +376,11 @@ If you get this error message and your network connection is active
 double-check that your time zone settings are correct, and that the local time is
 displaying correctly. The authentication process won't work otherwise.
 
-## <a id="beta">Beta testing</a>
-
-If you want to help beta testing, visit the [Play Store beta page]. You will be asked to opt in
-to the beta program (you can leave it anytime).
-
-Once opted in your device will automatically update to the latest beta which might have bug fixes
-and features not found in the currently released version.
-
-Alternatively you can download an APK from [Github releases][] and install it manually
-(⚠️ you won't get automatic updates this way). You can also install via [F-Droid][]
-which often has more recent versions than what is available on the Play Store.
-
 ## <a id="contributing">Contributing</a>
 
 ### Installation from source
 
-    $ git clone https://github.com/jberkel/sms-backup-plus.git
+    $ git clone https://github.com/henrichg/sms-backup-plus.git
     $ cd sms-backup-plus
     $ ./gradlew assembleDebug
     $ adb install app/build/outputs/apk/app-debug.apk
