@@ -145,9 +145,6 @@ automatically get created on the first backup.
 
 ## <a id="faq">FAQ</a>
 
-If you don't find an answer here you can also visit the [Google+ community][] which might be able
-to help.
-
   * [General questions](#faq-general)
     * [I want to file a bug report, what should I do?](#faq-general-file-bug-report)
     * [Can you add feature X?](#faq-general-can-you-add-feature-x)
