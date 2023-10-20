@@ -1,18 +1,10 @@
 # hSMSBackup+ <img src="https://raw.githubusercontent.com/jberkel/sms-backup-plus/master/metadata/play/assets/sms-backup.svg?sanitize=true" height="50px" alt="SMS Backup+ logo"/> [![Build Status SVG][]][Build Status] [![Open Source Helpers](https://www.codetriage.com/jberkel/sms-backup-plus/badges/users.svg)](https://www.codetriage.com/jberkel/sms-backup-plus)
 
-[<img alt="Get it on Google Play" src="https://jberkel.github.io/sms-backup-plus/assets/img/google-play-badge.png" height="80pt"/>][Google Play Store] [<img alt="Get it on F-Droid" src="https://jberkel.github.io/sms-backup-plus/assets/img/f-droid-badge.svg" height="80pt"/>][F-Droid]
-
----------------------
-## Reporting bugs
-
-Please read the [known issues](BUGS.md) before reporting any new issues; we already know about several significant issues, including Gmail login failures (for which there is a robust work-around), and problems with logging phone calls into calendars (which we are investigating).
+## Forked version of original SMSBackup+ - https://github.com/jberkel/sms-backup-plus
+Original SMSBackup+ is not more developed, support is ended.
 
 ---------------------
 ## Description
-
-This is a fork of the now-defunct Android backup tool
-[SMS Backup](http://code.google.com/p/android-sms). It uses Gmail/IMAP to perform SMS, MMS and call log backups over
-the network.
 
 Main features/improvements:
 
@@ -42,9 +34,6 @@ there will never be a pro / paid version.
 
 But if you find the app useful and want to support its development you can make a donation
 using the secure in-app Play Store payment mechanism.
-
-To get updates more frequently join the [beta programme](#beta) or download the latest beta manually
-from [Github releases].
 
 Also make sure to read the [Privacy Policy][].
 
@@ -212,9 +201,6 @@ The sync log is stored as `sms_backup_plus.log` (in the directory `Android/data/
 Rather than including the log in the text of your issue description, please use the "attach
 image" feature to attach your logfile _as text_ to your issue.
 Alternatively, create a [gist](https://gist.github.com) and link to it from your issue description.
-
-It might also be worth to install the [current beta version](#beta) of SMS Backup+ to
-see if the bug is also present in the development version.
 
 #### <a id="faq-general-can-you-add-feature-x">Can you add feature X?</a>
 
