@@ -153,6 +153,7 @@
             </intent-filter>
         </receiver>
 
+        <!--
         <receiver android:name=".receiver.BackupBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
@@ -162,6 +163,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
+        -->
 
         <!-- BroadcastReceiver that listens for incoming SMS messages -->
         <receiver android:name=".compat.SmsReceiver"

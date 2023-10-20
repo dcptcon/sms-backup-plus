@@ -11,7 +11,7 @@ android {
     compileSdkVersion 33
     defaultConfig {
         applicationId 'com.zegoggles.smssync'
-        minSdkVersion 14
+        minSdkVersion 26
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
         versionCode 1651
