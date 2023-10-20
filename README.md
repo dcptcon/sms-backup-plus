@@ -1,6 +1,6 @@
 # hSMSBackup+ <img src="https://raw.githubusercontent.com/jberkel/sms-backup-plus/master/metadata/play/assets/sms-backup.svg?sanitize=true" height="50px" alt="SMS Backup+ logo"/> [![Build Status SVG][]][Build Status] [![Open Source Helpers](https://www.codetriage.com/jberkel/sms-backup-plus/badges/users.svg)](https://www.codetriage.com/jberkel/sms-backup-plus)
 
-## Forked version of original SMSBackup+ - https://github.com/jberkel/sms-backup-plus
+### Forked version of original SMSBackup+ - https://github.com/jberkel/sms-backup-plus
 Original SMSBackup+ is not more developed, support is ended.
 
 ---------------------
