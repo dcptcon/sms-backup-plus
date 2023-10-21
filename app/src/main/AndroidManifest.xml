@@ -131,6 +131,7 @@
             </intent-filter>
         </service>
 
+        <!--
         <receiver android:name=".receiver.SmsBroadcastReceiver"
                   android:enabled="true"
                   android:permission="android.permission.BROADCAST_SMS"
@@ -139,6 +140,7 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
         </receiver>
+        -->
 
         <receiver android:name=".receiver.BootReceiver"
             android:enabled="true"

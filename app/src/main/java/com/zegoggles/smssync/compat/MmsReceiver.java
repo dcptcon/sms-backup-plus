@@ -9,6 +9,6 @@ import android.util.Log;
 
 public class MmsReceiver extends BroadcastReceiver {
     @Override public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "onReceive("+intent+")");
+        Log.e(TAG, "onReceive("+intent+")");
     }
 }
