@@ -1,7 +1,5 @@
 package com.zegoggles.smssync.activity;
 
-import android.annotation.TargetApi;
-import android.os.Build.VERSION;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -17,13 +15,13 @@ public abstract class ThemeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         final int themeResId = new Preferences(this).getAppTheme();
         setTheme(themeResId);
-        if (VERSION.SDK_INT >= 26) {
+        //if (VERSION.SDK_INT >= 26) {
             setNavBarColor(themeResId);
-        }
+        //}
         super.onCreate(savedInstanceState);
     }
 
-    @TargetApi(26)
+    //@TargetApi(26)
     private void setNavBarColor(@StyleRes final int themeId) {
         final int navBarColor = getResources().getColor(
             themeId == R.style.SMSBackupPlusTheme_Light ?

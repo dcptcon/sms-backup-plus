@@ -221,6 +221,7 @@ class RestoreTask extends AsyncTask<RestoreConfig, RestoreState, RestoreState> {
         FetchProfile fp = new FetchProfile();
         fp.add(FetchProfile.Item.BODY);
         DataType dataType = null;
+        //noinspection TryWithIdenticalCatches
         try {
             if (LOCAL_LOGV) Log.v(TAG, "fetching message uid " + message.getUid());
             message.getFolder().fetch(Collections.singletonList(message), fp, null);

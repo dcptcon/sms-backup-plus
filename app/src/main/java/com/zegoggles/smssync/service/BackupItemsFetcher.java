@@ -59,6 +59,7 @@ public class BackupItemsFetcher {
     @SuppressLint("Recycle")
     private @NonNull Cursor performQuery(@Nullable BackupQueryBuilder.Query query) {
         if (query == null) return emptyCursor();
+        //noinspection TryWithIdenticalCatches
         try {
             //noinspection resource
             final Cursor cursor = resolver.query(

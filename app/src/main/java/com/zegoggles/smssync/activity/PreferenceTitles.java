@@ -24,6 +24,7 @@ class PreferenceTitles {
     /** @noinspection SameParameterValue*/
     PreferenceTitles(@NonNull Resources resources, @XmlRes int preferenceRes) {
         final XmlResourceParser parser = resources.getXml(preferenceRes);
+        //noinspection TryWithIdenticalCatches
         try {
             while (true) {
                 int type;

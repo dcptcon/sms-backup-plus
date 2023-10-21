@@ -1,7 +1,6 @@
 package com.zegoggles.smssync.mail;
 
 import android.content.Context;
-import android.os.Build;
 import androidx.core.content.ContextCompat;
 import com.zegoggles.smssync.R;
 
@@ -18,7 +17,7 @@ public enum DataType {
     MMS     (R.string.mms,     R.string.mms_with_field,  PreferenceKeys.IMAP_FOLDER,         Defaults.SMS_FOLDER,     PreferenceKeys.BACKUP_MMS,      Defaults.MMS_BACKUP_ENABLED,     null,                           Defaults.MMS_RESTORE_ENABLED,     PreferenceKeys.MAX_SYNCED_DATE_MMS, new String[]{READ_SMS, READ_CONTACTS}),
     CALLLOG (R.string.calllog, R.string.call_with_field, PreferenceKeys.IMAP_FOLDER_CALLLOG, Defaults.CALLLOG_FOLDER, PreferenceKeys.BACKUP_CALLLOG,  Defaults.CALLLOG_BACKUP_ENABLED, PreferenceKeys.RESTORE_CALLLOG, Defaults.CALLLOG_RESTORE_ENABLED, PreferenceKeys.MAX_SYNCED_DATE_CALLLOG,
         // READ_CALL_LOG was introduced in API level 16 (Jelly Bean), previously part of READ_CONTACTS
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN ? new String[]{ READ_CONTACTS, READ_CALL_LOG } : new String[]{ READ_CONTACTS }
+        /*Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN ?*/ new String[]{ READ_CONTACTS, READ_CALL_LOG } /*: new String[]{ READ_CONTACTS } */
     );
 
     public final int resId;

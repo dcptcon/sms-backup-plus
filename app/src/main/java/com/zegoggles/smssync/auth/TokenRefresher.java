@@ -52,6 +52,7 @@ public class TokenRefresher {
     private void refreshUsingAccountManager(String token, String name) throws TokenRefreshException {
         if (accountManager == null) throw new TokenRefreshException("account manager is null");
         invalidateToken(token);
+        //noinspection TryWithIdenticalCatches
         try {
             Bundle bundle = getAuthToken(new Account(name, GOOGLE_TYPE));
 

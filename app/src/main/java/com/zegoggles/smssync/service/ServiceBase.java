@@ -15,7 +15,6 @@
  */
 package com.zegoggles.smssync.service;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,7 +24,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -207,13 +205,14 @@ public abstract class ServiceBase extends Service {
     }
 
     boolean isConnectedViaWifi() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return isConnectedViaWifi_SDK21();
-        } else {
-            return isConnectedViaWifi_pre_SDK21();
-        }
+        //} else {
+        //    return isConnectedViaWifi_pre_SDK21();
+        //}
     }
 
+    /*
     @SuppressWarnings("deprecation")
     private boolean isConnectedViaWifi_pre_SDK21() {
         WifiManager wifiManager = getWifiManager();
@@ -223,8 +222,9 @@ public abstract class ServiceBase extends Service {
                 getConnectivityManager().getNetworkInfo(TYPE_WIFI) != null &&
                 getConnectivityManager().getNetworkInfo(TYPE_WIFI).isConnected());
     }
+    */
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("deprecation")
     private boolean isConnectedViaWifi_SDK21() {
         for (Network network : getConnectivityManager().getAllNetworks()) {

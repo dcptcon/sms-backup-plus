@@ -166,12 +166,7 @@ public class AppLog {
     }
 
     private void rotateAsync(final File logFile) {
-        new Thread() {
-            @Override
-            public void run() {
-                rotate(logFile);
-            }
-        }.start();
+        new Thread(() -> rotate(logFile)).start();
     }
 
     private void rotate(final File logFile) {

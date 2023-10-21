@@ -214,6 +214,7 @@ public class OAuth2Client {
 
     // Retrieves the google email account address using the contacts API
     private String getUsernameFromContacts(OAuth2Token token) {
+        //noinspection TryWithIdenticalCatches
         try {
             HttpsURLConnection connection = (HttpsURLConnection) new URL(CONTACTS_URL).openConnection();
             connection.addRequestProperty("Authorization", "Bearer "+token.accessToken);

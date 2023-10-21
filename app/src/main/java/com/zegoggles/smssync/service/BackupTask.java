@@ -141,6 +141,7 @@ class BackupTask extends AsyncTask<BackupConfig, BackupState, BackupState> {
 
     private BackupState fetchAndBackupItems(BackupConfig config) {
         BackupCursors cursors = null;
+        //noinspection TryWithIdenticalCatches
         try {
             final ContactGroupIds groupIds = contactAccessor.getGroupContactIds(service.getContentResolver(), config.groupToBackup);
 

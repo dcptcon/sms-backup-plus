@@ -149,7 +149,7 @@ public class MainSettings extends SMSBackupPreferenceFragment {
     }
 
     private CheckBoxPreference findAutoBackupPreference() {
-        return (CheckBoxPreference) findPreference(ENABLE_AUTO_BACKUP.key);
+        return /*(CheckBoxPreference)*/ findPreference(ENABLE_AUTO_BACKUP.key);
     }
 
 }

@@ -164,6 +164,7 @@ public class BackupImapStore extends ImapStore {
 
                 if (LOCAL_LOGV) Log.v(TAG, "Sorting");
                 //Debug.startMethodTracing("sorting");
+                //noinspection Java8ListSort
                 sort(msgs, MessageComparator.INSTANCE);
                 //Debug.stopMethodTracing();
                 if (LOCAL_LOGV) Log.v(TAG, "Sorting done");

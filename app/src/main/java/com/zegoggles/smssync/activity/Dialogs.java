@@ -151,7 +151,7 @@ public class Dialogs {
         @Override @NonNull @SuppressLint("InflateParams")
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
             final View contentView = getActivity().getLayoutInflater().inflate(R.layout.about_dialog, null, false);
-            webView = (WebView) contentView.findViewById(R.id.about_content);
+            webView = /*(WebView)*/ contentView.findViewById(R.id.about_content);
             final float scrollPosition = savedInstanceState == null ? 0f : savedInstanceState.getFloat(SCROLL_POSITION);
 
             webView.setWebViewClient(new WebViewClient() {

@@ -2,7 +2,6 @@ package com.zegoggles.smssync.service;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.PowerManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -65,7 +64,7 @@ public class SmsRestoreService extends ServiceBase {
      * write to the SMS Provider.
      */
     private boolean canWriteToSmsProvider() {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT ||
+        return //Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT ||
                isSmsBackupDefaultSmsApp(this);
     }
 
@@ -160,13 +159,13 @@ public class SmsRestoreService extends ServiceBase {
 
     @SuppressWarnings("deprecation")
     @Override protected int wakeLockType() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // hold a full wake lock when restoring on newer version of Android, since
             // the user needs to switch  back the sms app afterwards
             return PowerManager.FULL_WAKE_LOCK;
-        } else {
-            return super.wakeLockType();
-        }
+        //} else {
+        //    return super.wakeLockType();
+        //}
     }
 
     public static boolean isServiceIdle() {

@@ -110,6 +110,7 @@ public class SmsBackupService extends ServiceBase {
     private void backup(BackupType backupType) {
         getNotifier().cancel(NOTIFICATION_ID_WARNING);
 
+        //noinspection TryWithIdenticalCatches
         try {
             // set initial state
             state = new BackupState(INITIAL, 0, 0, backupType, null, null);

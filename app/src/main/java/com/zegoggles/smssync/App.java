@@ -22,6 +22,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -32,7 +33,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.StrictMode;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import android.util.Log;
@@ -73,9 +73,9 @@ public class App extends Application {
         preferences = new Preferences(this);
         preferences.migrate();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel();
-        }
+        //}
 
         backupJobs = new BackupJobs(this);
 
@@ -107,11 +107,12 @@ public class App extends Application {
         register(this);
 
         BackupBroadcastReceiver backupBroadcastReceiver = new BackupBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter("com.zegoggles.smssync.BACKUP");
+        intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         int receiverFlags = 0;
         if (Build.VERSION.SDK_INT >= 34)
             receiverFlags = RECEIVER_NOT_EXPORTED;
-        registerReceiver(backupBroadcastReceiver,
-                new IntentFilter("com.zegoggles.smssync.BACKUP"), receiverFlags);
+        registerReceiver(backupBroadcastReceiver, intentFilter, receiverFlags);
     }
 
     /** @noinspection unused*/
@@ -178,7 +179,7 @@ public class App extends Application {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    //@RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel() {
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
                 "default",

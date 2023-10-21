@@ -104,6 +104,7 @@ class HeaderGenerator {
      * @return the message-id
      */
     private static String createMessageId(Date sent, String address, int type) {
+        //noinspection TryWithIdenticalCatches
         try {
             final MessageDigest digest = MessageDigest.getInstance("MD5");
 

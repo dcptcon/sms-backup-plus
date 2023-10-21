@@ -17,7 +17,6 @@
 package com.zegoggles.smssync.activity;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.role.RoleManager;
 import android.content.Context;
 import android.content.Intent;
@@ -370,11 +369,11 @@ public class MainActivity extends ThemeActivity implements
         startService(new Intent(this, SmsBackupService.class).setAction(backupType.name()));
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    //@TargetApi(Build.VERSION_CODES.KITKAT)
     private void startRestore() {
         final Intent intent = new Intent(this, SmsRestoreService.class);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isSmsBackupDefaultSmsApp(this)) {
                 startService(intent);
             } else {
@@ -392,9 +391,9 @@ public class MainActivity extends ThemeActivity implements
                     Toast.makeText(this, R.string.error_no_sms_default_package, LENGTH_LONG).show();
                 }
             }
-        } else {
-            startService(intent);
-        }
+        //} else {
+        //    startService(intent);
+        //}
     }
 
     private void showFragment(@NonNull Fragment fragment, @Nullable String rootKey) {

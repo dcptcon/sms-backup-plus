@@ -210,7 +210,7 @@ public abstract class AdvancedSettings extends SMSBackupPreferenceFragment {
         }
 
         private void updateBackupContactGroupLabelFromPref() {
-            final ListPreference groupPref = (ListPreference)
+            final ListPreference groupPref = /*(ListPreference)*/
                     findPreference(BACKUP_CONTACT_GROUP.key);
 
             //noinspection DataFlowIssue

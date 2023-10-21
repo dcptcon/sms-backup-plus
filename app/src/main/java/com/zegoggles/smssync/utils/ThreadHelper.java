@@ -34,6 +34,7 @@ public class ThreadHelper {
         if (threadIdCache.containsKey(recipient)) {
             return threadIdCache.get(recipient);
         } else if (getOrCreateThreadId == null) {
+            //noinspection TryWithIdenticalCatches
             try {
                 telephonyThreads = Class.forName("android.provider.Telephony$Threads");
                 getOrCreateThreadId = telephonyThreads.getMethod("getOrCreateThreadId",
@@ -45,6 +46,7 @@ public class ThreadHelper {
             }
         }
 
+        //noinspection TryWithIdenticalCatches
         try {
             final Long id = (Long) getOrCreateThreadId.invoke(telephonyThreads,
                     context, recipient);
