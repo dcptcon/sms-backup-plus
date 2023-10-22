@@ -1,9 +1,12 @@
 # SMS Backup+ <img src="https://raw.githubusercontent.com/jberkel/sms-backup-plus/master/metadata/play/assets/sms-backup.svg?sanitize=true" height="50px" alt="SMS Backup+ logo"/>
 
 ### Forked version of original SMS Backup+ - https://github.com/jberkel/sms-backup-plus
-In this fork is fixed not working broadcast "com.zegoggles.smssync.BACKUP".
+In this fork is fixed:
+- Not working broadcast "com.zegoggles.smssync.BACKUP".
+- Bad working auto backup.
+- Bad working immediate backup. 
 
-Supported are devices with Android 8+.
+- This fork supports devices with Android 8+.
 
 ---------------------
 ## Description
@@ -19,7 +22,7 @@ Main features/improvements:
     * ⚠️ In June 2019 Google [changed their API policy], introducing [sensitivity scopes], and
       as a result SMS Backup+ [can no longer use XOAuth2] to save messages into your mailbox;
       instead a "password" is required to access Gmail via IMAP, but it can be a generated
-      [application password][Sign in using App Passwords]
+      [application password][Sign in using App Passwords 2]
       (which can be revoked without affecting your real password).
 
   * MMS backup support (added in version 1.1)
@@ -450,6 +453,7 @@ This application is released under the terms of the [Apache License, Version 2.0
 [GitHub Community Guidelines]: https://help.github.com/en/articles/github-community-guidelines
 [Android Police article]: https://www.androidpolice.com/2019/08/12/sms-backup-is-now-broken-due-to-gmails-api-changes-but-theres-a-workaround/
 [Sign in using App Passwords]: https://support.google.com/accounts/answer/185833?hl=en
+[Sign in using App Passwords 2]: https://itsupport.umd.edu/itsupport?id=kb_article_view&sysparm_article=KB0015112
 
 [Google Play Store]: https://play.google.com/store/apps/details?id=com.zegoggles.smssync
 [F-Droid]: https://f-droid.org/packages/com.zegoggles.smssync/
