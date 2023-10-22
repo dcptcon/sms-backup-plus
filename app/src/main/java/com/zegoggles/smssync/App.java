@@ -80,7 +80,7 @@ public class App extends Application {
         registerReceiver(smsBroadcastReceiver, intentFilter21, receiverFlags);
 
         BackupBroadcastReceiver backupBroadcastReceiver = new BackupBroadcastReceiver();
-        IntentFilter intentFilter = new IntentFilter("com.zegoggles.smssync.BACKUP");
+        IntentFilter intentFilter = new IntentFilter(BackupBroadcastReceiver.BACKUP_ACTION);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(backupBroadcastReceiver, intentFilter, receiverFlags);
 
