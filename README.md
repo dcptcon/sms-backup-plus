@@ -6,7 +6,7 @@ In this fork is fixed:
 - Bad working auto backup.
 - Bad working immediate backup. 
 
-- This fork supports devices with Android 8+.
+This fork supports devices with Android 8+.
 
 Requirements:
 - For backup of SMS/MMS is required to be granted "SMS" permission.
