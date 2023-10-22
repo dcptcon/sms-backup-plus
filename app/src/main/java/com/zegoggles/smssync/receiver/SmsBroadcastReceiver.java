@@ -18,6 +18,7 @@ package com.zegoggles.smssync.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Telephony;
 import android.util.Log;
 import com.zegoggles.smssync.preferences.AuthPreferences;
 import com.zegoggles.smssync.preferences.Preferences;
@@ -30,13 +31,14 @@ import static com.zegoggles.smssync.App.TAG;
 public class SmsBroadcastReceiver extends BroadcastReceiver {
     public static final String SMS_RECEIVED_1 = "android.provider.Telephony.SMS_RECEIVED";
     public static final String SMS_RECEIVED_2 = "Telephony.Sms.Intents.SMS_RECEIVED_ACTION";
+    public static final String MMS_RECEIVED = "Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (LOCAL_LOGV) Log.e(TAG, "onReceive(" + context + "," + intent + ")");
 
         String action = intent.getAction();
-        if (SMS_RECEIVED_1.equals(action) || SMS_RECEIVED_2.equals(action)) {
+        if (SMS_RECEIVED_1.equals(action) || SMS_RECEIVED_2.equals(action) || MMS_RECEIVED.equals(action)) {
             incomingSMS(context);
         } else {
             Log.w(TAG, "unhandled intent: "+intent);
