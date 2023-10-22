@@ -14,8 +14,8 @@ android {
         minSdkVersion 26
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
-        versionCode 1652
-        versionName '1.7.0b'
+        versionCode 1660
+        versionName '1.7.0'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
