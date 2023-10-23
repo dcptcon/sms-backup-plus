@@ -22,14 +22,14 @@ import com.zegoggles.smssync.preferences.Preferences;
 import com.zegoggles.smssync.service.BackupJobs;
 
 import static com.zegoggles.smssync.App.LOCAL_LOGV;
-import static com.zegoggles.smssync.App.TAG;
+//import static com.zegoggles.smssync.App.TAG;
 
 public class BackupBroadcastReceiver extends BroadcastReceiver {
     public static final String BACKUP_ACTION = "com.zegoggles.smssync.BACKUP";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (LOCAL_LOGV) Log.e(TAG, "onReceive(" + context + "," + intent + ")");
+        if (LOCAL_LOGV) Log.e("[LOG] BackupBroadcastReceiver.onReceive", "onReceive(" + context + "," + intent + ")");
         //Log.e(TAG, "onReceive(" + context + "," + intent + ")");
 
         if (BACKUP_ACTION.equals(intent.getAction())) {
@@ -40,10 +40,10 @@ public class BackupBroadcastReceiver extends BroadcastReceiver {
     /** @noinspection unused*/
     private void backupRequested(Context context, Intent intent) {
         if (new Preferences(context).isAllow3rdPartyIntegration()) {
-            Log.e(TAG, "backup requested via broadcast intent");
+            Log.e("[LOG] BackupBroadcastReceiver.backupRequested", "backup requested via broadcast intent");
             new BackupJobs(context).scheduleImmediate();
         } else {
-            Log.e(TAG, "backup requested via broadcast intent but ignored");
+            Log.e("[LOG] BackupBroadcastReceiver.backupRequested", "backup requested via broadcast intent but ignored");
         }
     }
 }

@@ -52,7 +52,7 @@ public abstract class ServiceBase extends Service {
     @Nullable private PowerManager.WakeLock wakeLock;
     @Nullable private WifiManager.WifiLock wifiLock;
 
-    private AppLog appLog;
+    AppLog appLog;
     @Nullable Notification notification;
 
     @Override
@@ -70,6 +70,7 @@ public abstract class ServiceBase extends Service {
         super.onCreate();
         if (new Preferences(this).isAppLogEnabled()) {
             this.appLog = new AppLog(this);
+//            Log.e("[LOG] ServiceBase.onCreate", "create of appLog="+appLog);
         }
         App.register(this);
     }
@@ -77,6 +78,7 @@ public abstract class ServiceBase extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+//        Log.e("[LOG] ServiceBase.onDestroy", "close of appLog="+appLog);
         if (appLog != null) appLog.close();
         App.unregister(this);
         notification = null;
@@ -156,18 +158,22 @@ public abstract class ServiceBase extends Service {
 
     protected void appLog(int id, Object... args) {
         final String msg = getString(id, args);
+//        Log.e("[LOG] ServiceBase.appLog", "appLog="+appLog);
         if (appLog != null) {
+//            Log.e("[LOG] ServiceBase.appLog", msg);
             appLog.append(msg);
         } else if (LOCAL_LOGV) {
-            Log.d(App.TAG, "AppLog: "+msg);
+            Log.e("[LOG] ServiceBase.appLog", "(appLog == null) AppLog: "+msg);
         }
     }
 
     protected void appLogDebug(String message, Object... args) {
+//        Log.e("[LOG] ServiceBase.appLogDebug", "appLog="+appLog);
         if (getPreferences().isAppLogDebug() && appLog != null) {
+//            Log.e("[LOG] ServiceBase.appLogDebug", message);
             appLog.append(String.format(ENGLISH, message, args));
         } else if (LOCAL_LOGV) {
-            Log.v(App.TAG, "AppLog: "+String.format(ENGLISH, message, args));
+            Log.e("[LOG] ServiceBase.appLogDebug", "(appLog == null) AppLog: "+String.format(ENGLISH, message, args));
         }
     }
 

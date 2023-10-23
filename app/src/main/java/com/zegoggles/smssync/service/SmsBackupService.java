@@ -76,14 +76,17 @@ public class SmsBackupService extends ServiceBase {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (LOCAL_LOGV) Log.v(TAG, "SmsBackupService#onCreate");
+        if (LOCAL_LOGV) Log.e("[LOG] SmsBackupService.onCreate", "appLog="+appLog);
         service = this;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (LOCAL_LOGV) Log.v(TAG, "SmsBackupService#onDestroy(state=" + getState() + ")");
+        if (LOCAL_LOGV) {
+            Log.e("[LOG] SmsBackupService.onDestroy", "appLog="+appLog);
+            Log.e("[LOG] SmsBackupService.onDestroy", "SmsBackupService#onDestroy(state=" + getState() + ")");
+        }
         service = null;
     }
 
@@ -92,7 +95,7 @@ public class SmsBackupService extends ServiceBase {
         if (intent == null) return; // NB: should not happen with START_NOT_STICKY
         final BackupType backupType = BackupType.fromIntent(intent);
         if (LOCAL_LOGV) {
-            Log.v(TAG, "handleIntent(" + intent +
+            Log.e("[LOG] SmsBackupService.handleIntent", "handleIntent(" + intent +
                     ", " + (intent.getExtras() == null ? "null" : intent.getExtras().keySet()) +
                     ", " + intent.getAction() +
                     ", type="+backupType+")");

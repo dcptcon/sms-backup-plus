@@ -112,6 +112,7 @@ public class BackupImapStore extends ImapStore {
         }
     }
 
+    /** @noinspection unused*/
     /* package, for testing */ TrustedSocketFactory getTrustedSocketFactory() {
         return mTrustedSocketFactory;
     }
@@ -132,6 +133,7 @@ public class BackupImapStore extends ImapStore {
         }
     }
 
+    /** @noinspection unused*/
     public String getStoreUri() {
         return mStoreConfig.getStoreUri();
     }

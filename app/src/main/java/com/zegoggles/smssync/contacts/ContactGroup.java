@@ -11,6 +11,7 @@ public class ContactGroup {
         GROUP
     }
 
+    /** @noinspection unused*/
     public static final ContactGroup EVERYBODY = new ContactGroup(-1);
 
     public ContactGroup(final long id) {

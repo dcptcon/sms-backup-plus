@@ -23,6 +23,7 @@ import com.squareup.otto.Subscribe;
 import com.zegoggles.smssync.App;
 import com.zegoggles.smssync.preferences.Preferences;
 import com.zegoggles.smssync.service.state.BackupState;
+import com.zegoggles.smssync.utils.AppLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,12 +69,12 @@ public class SmsJobService extends JobService {
     public boolean onStartJob(JobParameters jobParameters) {
         final Bundle extras = jobParameters.getExtras();
         if (LOCAL_LOGV) {
-            Log.v(TAG, "onStartJob(" + jobParameters + ", extras=" + extras + ")");
+            Log.e("[LOG] SmsJobService.onStartJob", "onStartJob(" + jobParameters + ", extras=" + extras + ")");
         }
 
         if (wasTriggeredByContentUri(jobParameters)) {
             if (LOCAL_LOGV) {
-                Log.v(TAG, "scheduling follow-up job for content triggered job "+jobParameters);
+                Log.e("[LOG] SmsJobService.onStartJob", "(1) scheduling follow-up job for content triggered job "+jobParameters);
             }
             getBackupJobs().scheduleIncoming();
             return false;
@@ -81,14 +82,20 @@ public class SmsJobService extends JobService {
             // Since API level 26, an app in background cannot start a background service,
             // so just instantiate service manually
             // https://developer.android.com/about/versions/oreo/background.html#services
+//            Log.e("[LOG] SmsJobService.onStartJob", "(2) scheduling follow-up job for content triggered job "+jobParameters);
             SmsBackupService service = new SmsBackupService();
             service.attachBaseContext(this);
+            // initialize appLog - is not intialized, because is not called service.onCreate()
+            if (new Preferences(this).isAppLogEnabled()) {
+                service.appLog = new AppLog(this);
+//                Log.e("[LOG] SmsJobService.onStartJob", "create of service.appLog="+service.appLog);
+            }
             service.handleIntent(new Intent(jobParameters.getTag()).putExtras(extras));
 
             jobs.put(jobParameters.getTag(), jobParameters);
             return true;
         } else {
-            Log.d(TAG, "skipping run");
+            Log.e("[LOG] SmsJobService.onStartJob", "skipping run");
             return false;
         }
     }

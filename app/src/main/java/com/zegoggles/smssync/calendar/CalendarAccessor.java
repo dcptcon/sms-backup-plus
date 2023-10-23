@@ -9,14 +9,15 @@ import java.util.Map;
 
 public interface CalendarAccessor {
 
-    /**
+    /*
      * Enables syncing for this calendar id.
      * @param calendarId the calendar id to enable syncing for.
      * @return if sync was enabled
      */
+    /** @noinspection UnusedReturnValue*/
     boolean enableSync(long calendarId);
 
-    /**
+    /*
      * Adds an event to a calendar.
      *
      * @param calendarId  the ID of the calendar to add to
@@ -26,6 +27,7 @@ public interface CalendarAccessor {
      * @param description a description for the calendar event
      * @return if the event was added
      */
+    /** @noinspection UnusedReturnValue*/
     boolean addEntry(long calendarId, @NonNull Date when, int duration, @NonNull String title, String description);
 
     /**

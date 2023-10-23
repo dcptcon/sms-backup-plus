@@ -27,6 +27,7 @@ public class DataTypePreferences implements SharedPreferences.OnSharedPreference
         return sharedPreferences.getBoolean(dataType.backupEnabledPreference, dataType.backupEnabledByDefault);
     }
 
+    /** @noinspection unused*/
     public void setBackupEnabled(boolean enabled, DataType dataType) {
         sharedPreferences
             .edit()

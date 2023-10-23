@@ -120,6 +120,7 @@ public class AuthPreferences {
         getCredentials().edit().putString(IMAP_PASSWORD, s).commit();
     }
 
+    /** @noinspection unused*/
     public void setImapUser(String s) {
         preferences.edit().putString(IMAP_USER, s).commit();
     }

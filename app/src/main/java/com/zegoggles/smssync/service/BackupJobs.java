@@ -73,6 +73,7 @@ public class BackupJobs {
             new GooglePlayDriver(context));
     }
 
+    /** @noinspection UnusedReturnValue*/
     public @Nullable Job scheduleIncoming() {
         return schedule(preferences.getIncomingTimeoutSecs(), INCOMING, false);
     }
@@ -81,10 +82,12 @@ public class BackupJobs {
         return schedule(preferences.getRegularTimeoutSecs(), REGULAR, false);
     }
 
+    /** @noinspection UnusedReturnValue*/
     public @Nullable Job scheduleContentTriggerJob() {
         return schedule(createContentUriTriggerJob());
     }
 
+    /** @noinspection UnusedReturnValue*/
     public @Nullable Job scheduleBootup() {
         if (!preferences.isAutoBackupEnabled()) {
             Log.d(TAG, "auto backup no longer enabled, canceling all jobs");
@@ -98,6 +101,7 @@ public class BackupJobs {
         }
     }
 
+    /** @noinspection UnusedReturnValue*/
     public @Nullable Job scheduleImmediate() {
         return schedule(-1, BROADCAST_INTENT, true);
     }

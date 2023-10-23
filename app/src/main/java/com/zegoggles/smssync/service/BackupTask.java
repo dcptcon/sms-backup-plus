@@ -87,6 +87,7 @@ class BackupTask extends AsyncTask<BackupConfig, BackupState, BackupState> {
         this.tokenRefresher = new TokenRefresher(service, new OAuth2Client(authPreferences.getOAuth2ClientId()), authPreferences);
     }
 
+    /** @noinspection unused*/
     BackupTask(SmsBackupService service,
                BackupItemsFetcher fetcher,
                MessageConverter messageConverter,
@@ -220,10 +221,12 @@ class BackupTask extends AsyncTask<BackupConfig, BackupState, BackupState> {
     }
 
     private void appLog(int id, Object... args) {
+//        Log.e("[LOG] BackupTask.appLog", "id="+id);
         service.appLog(id, args);
     }
 
     private void appLogDebug(String message, Object... args) {
+//        Log.e("[LOG] BackupTask.appLog", "message="+message);
         service.appLogDebug(message, args);
     }
 

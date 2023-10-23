@@ -52,7 +52,7 @@ public class AppLog {
         }
         File logFile = getLogFile(context);
         if (logFile != null) {
-            Log.w(TAG, "logging to " + logFile);
+            Log.e("[LOG] AppLog constructor", "logging to " + logFile);
 
             if (logFile.isFile() && logFile.exists()) {
                 rotateAsync(logFile);
@@ -60,7 +60,7 @@ public class AppLog {
             try {
                 writer = new PrintWriter(new FileWriter(logFile, true));
             } catch (IOException e) {
-                Log.w(TAG, "error opening app log", e);
+                Log.e("[LOG] AppLog constructor", "error opening app log", e);
             }
         }
     }
@@ -72,7 +72,8 @@ public class AppLog {
         sb.append(format(new Date()))
                 .append(" ").append(s);
         writer.println(sb);
-        if (LOCAL_LOGV) Log.v(TAG, "[AppLog]: " + sb);
+        writer.flush();
+        if (LOCAL_LOGV) Log.e("[LOG] AppLog.append", "[AppLog]: " + sb);
     }
 
     public void appendAndClose(String s) {
@@ -157,7 +158,7 @@ public class AppLog {
     }
 
     private static @Nullable File getLogFile(Context context) {
-        final File logDir = context.getExternalFilesDir(null);
+        final File logDir = context.getApplicationContext().getExternalFilesDir(null);
         if (logDir != null) {
             return new File(logDir, App.LOG);
         } else {
@@ -171,7 +172,7 @@ public class AppLog {
 
     private void rotate(final File logFile) {
         if (logFile.length() < MAX_SIZE) return;
-        if (LOCAL_LOGV) Log.v(TAG, "rotating logfile " + logFile);
+        if (LOCAL_LOGV) Log.e("[LOG] AppLog.rotate", "rotating logfile " + logFile);
 
         try {
             LineNumberReader r = new LineNumberReader(new FileReader(logFile));
@@ -196,11 +197,11 @@ public class AppLog {
                 r.close();
 
                 if (newFile.renameTo(logFile) && LOCAL_LOGV) {
-                    Log.v(TAG, "rotated file, new size = " + logFile.length());
+                    Log.e("[LOG] AppLog.rotate", "rotated file, new size = " + logFile.length());
                 }
             }
         } catch (IOException e) {
-            Log.e(TAG, "error rotating file " + logFile, e);
+            Log.e("[LOG] AppLog.rotate", "error rotating file " + logFile, e);
         }
     }
 }

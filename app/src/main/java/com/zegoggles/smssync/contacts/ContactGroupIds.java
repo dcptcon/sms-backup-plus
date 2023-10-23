@@ -20,10 +20,12 @@ public class ContactGroupIds {
         return ids.contains(personRecord.getContactId());
     }
 
+    /** @noinspection unused*/
     public boolean isEmpty() {
         return ids.isEmpty() && rawIds.isEmpty();
     }
 
+    /** @noinspection unused*/
     public Set<Long> getIds() {
         return new HashSet<>(ids);
     }

@@ -194,7 +194,7 @@ public class App extends Application {
         NotificationManagerCompat.from(this).createNotificationChannel(channel);
     }
 
-    /** @noinspection unused*/
+    /** @noinspection unused, EmptyMethod */
     private void setBroadcastReceiversEnabled(boolean enabled) {
         // enableOrDisableComponent(enabled, SmsBroadcastReceiver.class);
         // enableOrDisableComponent(enabled, BootReceiver.class);

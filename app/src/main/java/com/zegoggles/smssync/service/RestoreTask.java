@@ -344,6 +344,7 @@ class RestoreTask extends AsyncTask<RestoreConfig, RestoreState, RestoreState> {
         Log.d(TAG, "finished");
     }
 
+    /** @noinspection unused*/
     protected Set<String> getSmsIds() {
         return smsIds;
     }

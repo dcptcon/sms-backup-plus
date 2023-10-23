@@ -6,7 +6,9 @@ import java.util.Locale;
 
 public class Group {
     final String title;
-    final int _id, count;
+    /** @noinspection unused*/
+    final int _id;
+    final int count;
 
     Group(int id, String title, int count) {
         this._id = id;

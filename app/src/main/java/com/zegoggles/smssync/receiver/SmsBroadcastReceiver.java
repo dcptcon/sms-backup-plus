@@ -35,7 +35,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (LOCAL_LOGV) Log.e(TAG, "onReceive(" + context + "," + intent + ")");
+        if (LOCAL_LOGV) Log.e("[LOG] SmsBroadcastReceiver.onReceive", "onReceive(" + context + "," + intent + ")");
 
         String action = intent.getAction();
         if (SMS_RECEIVED.equals(action) || MMS_RECEIVED.equals(action)) {
@@ -49,7 +49,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
         if (shouldSchedule(context)) {
             getBackupJobs(context).scheduleIncoming();
         } else {
-            Log.i(TAG, "Received SMS but not set up to back up.");
+            Log.e("[LOG] SmsBroadcastReceiver.incomingSMS", "Received SMS but not set up to back up.");
         }
     }
 
@@ -74,7 +74,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void log(Context context, String message, boolean appLog) {
-        Log.d(TAG, message);
+        Log.e("[LOG] SmsBroadcastReceiver.log", message);
         if (appLog) {
             new AppLog(context).appendAndClose(message);
         }

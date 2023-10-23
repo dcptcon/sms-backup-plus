@@ -61,6 +61,7 @@ class MmsSupport {
             this.addresses = addresses;
         }
 
+        /** @noinspection unused*/
         public MmsDetails(boolean inbound,
                           String recipient,
                           PersonRecord record,

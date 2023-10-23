@@ -227,6 +227,7 @@ public class Preferences {
         return true;
     }
 
+    /** @noinspection unused*/
     public boolean isFirstUse() {
         if (isFirstBackup() && !preferences.contains(FIRST_USE.key)) {
             preferences.edit().putBoolean(FIRST_USE.key, false).commit();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<full-backup-content>
+<full-backup-content xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
     <!-- Exclude the shared preferences file that contain authentication tokens-->
     <exclude domain="sharedpref" path="credentials.xml"/>
 </full-backup-content>

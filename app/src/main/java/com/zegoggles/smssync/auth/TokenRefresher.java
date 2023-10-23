@@ -91,6 +91,7 @@ public class TokenRefresher {
         ).getResult();
     }
 
+    /** @noinspection UnusedReturnValue*/
     public boolean invalidateToken(String token) {
         if (accountManager != null) {
             // USE_CREDENTIALS permission should be enough according to docs
