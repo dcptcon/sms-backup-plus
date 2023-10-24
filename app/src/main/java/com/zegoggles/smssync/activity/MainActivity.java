@@ -16,6 +16,7 @@
 
 package com.zegoggles.smssync.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.role.RoleManager;
 import android.content.Context;
@@ -146,7 +147,7 @@ public class MainActivity extends ThemeActivity implements
             showDialog(ABOUT);
         }
         checkDefaultSmsApp();
-        requestPermissionsIfNeeded();
+        requestPermissionsIfNeeded_2();
     }
 
     @Override
@@ -477,6 +478,7 @@ public class MainActivity extends ThemeActivity implements
         }
     }
 
+    /** @noinspection unused*/
     private void requestPermissionsIfNeeded() {
         final Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_PERMISSIONS)) {
@@ -485,6 +487,23 @@ public class MainActivity extends ThemeActivity implements
             ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_BACKUP_SERVICE);
         }
     }
+    private void requestPermissionsIfNeeded_2() {
+        final String[] permissions = {
+                Manifest.permission.READ_SMS,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.RECEIVE_SMS,
+                Manifest.permission.RECEIVE_MMS,
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.WRITE_CONTACTS,
+                Manifest.permission.READ_CALL_LOG,
+                Manifest.permission.WRITE_CALL_LOG,
+                Manifest.permission.READ_CALENDAR,
+                Manifest.permission.WRITE_CALENDAR
+        };
+        //Log.v(TAG, "requesting permissions "+ Arrays.toString(permissions));
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_BACKUP_SERVICE);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

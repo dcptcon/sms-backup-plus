@@ -34,6 +34,7 @@ import android.os.StrictMode;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
 import android.util.Log;
 import com.fsck.k9.mail.K9MailLib;
 import com.squareup.otto.Bus;
@@ -69,20 +70,24 @@ public class App extends Application {
 
         setupStrictMode();
 
-        int receiverFlags = RECEIVER_EXPORTED;
+        Log.e("[LOG] App.onCreate", "xxxxxxxxxxxxxxxx");
 
         SmsBroadcastReceiver smsBroadcastReceiver = new SmsBroadcastReceiver();
         IntentFilter intentFilter21 = new IntentFilter();
-        //intentFilter21.addAction(SmsBroadcastReceiver.SMS_RECEIVED_1);
         intentFilter21.addAction(SmsBroadcastReceiver.SMS_RECEIVED);
-        intentFilter21.addAction(SmsBroadcastReceiver.MMS_RECEIVED);
         intentFilter21.setPriority(Integer.MAX_VALUE);
-        registerReceiver(smsBroadcastReceiver, intentFilter21, receiverFlags);
+        registerReceiver(smsBroadcastReceiver, intentFilter21);
+
+        smsBroadcastReceiver = new SmsBroadcastReceiver();
+        IntentFilter intentFilter22;
+        intentFilter22 = IntentFilter.create(SmsBroadcastReceiver.MMS_RECEIVED, "application/vnd.wap.mms-message");
+        intentFilter22.setPriority(Integer.MAX_VALUE);
+        registerReceiver(smsBroadcastReceiver, intentFilter22);
 
         BackupBroadcastReceiver backupBroadcastReceiver = new BackupBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(BackupBroadcastReceiver.BACKUP_ACTION);
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        registerReceiver(backupBroadcastReceiver, intentFilter, receiverFlags);
+        registerReceiver(backupBroadcastReceiver, intentFilter, RECEIVER_EXPORTED);
 
         gcmAvailable = GooglePlayServices.isAvailable(this);
         preferences = new Preferences(this);
@@ -119,10 +124,11 @@ public class App extends Application {
                 getContentResolver().registerContentObserver(Consts.CALLLOG_PROVIDER, true, new LoggingContentObserver());
             }
         }
+        autoBackupSettingsChanged(null);
+
         register(this);
     }
 
-    /** @noinspection unused*/
     @Subscribe public void autoBackupSettingsChanged(final AutoBackupSettingsChangedEvent event) {
         if (LOCAL_LOGV) {
             Log.v(TAG, "autoBackupSettingsChanged("+event+")");
@@ -213,12 +219,14 @@ public class App extends Application {
     }
 
     private void rescheduleJobs() {
+        Log.e("[LOG ] App.rescheduleJobs", "xxxxx");
         backupJobs.cancelAll();
 
         if (preferences.isAutoBackupEnabled()) {
             backupJobs.scheduleRegular();
 
             if (preferences.getIncomingTimeoutSecs() > 0 && !preferences.isUseOldScheduler()) {
+                Log.e("[LOG] App.rescheduleJobs", "incomming scheduler started");
                 backupJobs.scheduleContentTriggerJob();
             }
         }
