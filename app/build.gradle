@@ -11,10 +11,10 @@ android {
     compileSdkVersion 33
     defaultConfig {
         applicationId 'com.zegoggles.smssync'
-        minSdkVersion 26
+        minSdkVersion 24
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
-        versionCode 1670
+        versionCode 1675
         versionName '1.7.0'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
