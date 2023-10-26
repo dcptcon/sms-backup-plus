@@ -15,6 +15,7 @@ Requirements:
 - For "Backup settings"/"Call log settings"/"Calendar sync" is required to grant "Calendar" permission
 
 ---------------------
+
 ## Description
 
 Main features/improvements:
