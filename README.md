@@ -13,7 +13,7 @@ Requirements:
 - For backup of calls is required to be granted "Call logs" permission.
 - For "Backup settings"/"Contacts to backup" is required to be granted "Contacts" permission.
 - For "Backup settings"/"Call log settings"/"Calendar sync" is required to grant "Calendar" permission
-- x
+
 ---------------------
 
 ## Description
