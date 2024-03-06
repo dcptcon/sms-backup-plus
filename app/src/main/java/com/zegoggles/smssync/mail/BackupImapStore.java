@@ -207,7 +207,7 @@ public class BackupImapStore extends ImapStore {
     }
 
     public static boolean isValidImapFolder(String imapFolder) {
-        return !(imapFolder == null || imapFolder.length() == 0) &&
+        return !(imapFolder == null || imapFolder.isEmpty()) &&
                !(imapFolder.charAt(0) == '/' || imapFolder.charAt(0) == ' ' || imapFolder.charAt(imapFolder.length() - 1) == ' ');
     }
 

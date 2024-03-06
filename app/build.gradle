@@ -8,7 +8,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     //noinspection GrDeprecatedAPIUsage
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
         applicationId 'com.zegoggles.smssync'
         minSdkVersion 24
@@ -59,7 +59,7 @@ dependencies {
     implementation 'com.github.jberkel.k-9:k9mail-library:eaf689025e'
 //    implementation 'com.android.billingclient:billing:6.0.1'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.6'
-    implementation 'androidx.annotation:annotation:1.7.0'
+    implementation 'androidx.annotation:annotation:1.7.1'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.core:core-role:1.0.0'
 

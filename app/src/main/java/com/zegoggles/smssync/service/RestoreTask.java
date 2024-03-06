@@ -329,7 +329,7 @@ class RestoreTask extends AsyncTask<RestoreConfig, RestoreState, RestoreState> {
     }
 
     private void updateAllThreadsIfAnySmsRestored() {
-        if (smsIds.size() > 0) {
+        if (!smsIds.isEmpty()) {
             updateAllThreads();
         }
     }

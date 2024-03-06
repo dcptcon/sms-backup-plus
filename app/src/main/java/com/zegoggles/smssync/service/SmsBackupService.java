@@ -60,6 +60,7 @@ import static com.zegoggles.smssync.service.state.SmsSyncState.ERROR;
 import static com.zegoggles.smssync.service.state.SmsSyncState.FINISHED_BACKUP;
 import static com.zegoggles.smssync.service.state.SmsSyncState.INITIAL;
 
+/** @noinspection ClassEscapesDefinedScope*/
 public class SmsBackupService extends ServiceBase {
     private static final int BACKUP_ID = 1;
     private static final int NOTIFICATION_ID_WARNING = 1;

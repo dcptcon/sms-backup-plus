@@ -74,7 +74,7 @@ public class SmsReceiver extends BroadcastReceiver {
         values.put(Telephony.TextBasedSmsColumns.THREAD_ID, threadHelper.getThreadId(context, address));
         values.put(Telephony.TextBasedSmsColumns.READ, 0);
         values.put(Telephony.TextBasedSmsColumns.SEEN, 0);
-        if (sms.getPseudoSubject() != null && sms.getPseudoSubject().length() > 0) {
+        if (sms.getPseudoSubject() != null && !sms.getPseudoSubject().isEmpty()) {
             values.put(Telephony.TextBasedSmsColumns.SUBJECT, sms.getPseudoSubject());
         }
         values.put(Telephony.TextBasedSmsColumns.REPLY_PATH_PRESENT, sms.isReplyPathPresent() ? 1 : 0);

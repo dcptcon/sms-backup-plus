@@ -29,7 +29,7 @@ public class ListPreferenceHelper {
     /** @noinspection UnusedReturnValue*/
     public static boolean initListPreference(final ListPreference pref,
                                              final Map<?, ?> fields, boolean keepExisting) {
-        if (fields.size() > 0) {
+        if (!fields.isEmpty()) {
             final List<CharSequence> e = new ArrayList<>();
             final List<CharSequence> ev = new ArrayList<>();
 

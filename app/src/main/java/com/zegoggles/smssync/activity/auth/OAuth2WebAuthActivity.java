@@ -8,6 +8,7 @@ import com.squareup.otto.Subscribe;
 import com.zegoggles.smssync.App;
 import com.zegoggles.smssync.activity.ThemeActivity;
 
+/** @noinspection ClassEscapesDefinedScope*/
 public class OAuth2WebAuthActivity extends ThemeActivity {
     public static final String EXTRA_CODE = "code";
     private static final String EXTRA_ERROR = "error";

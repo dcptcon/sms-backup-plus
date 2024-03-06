@@ -140,7 +140,7 @@ public class BackupJobs {
             if (schedule(job) != null) {
                 if (LOCAL_LOGV) {
                     Log.v(TAG, "Scheduled backup job " + job + ", tag: " + job.getTag() + " due " +
-                            "" + (inSeconds > 0 ? "in " + inSeconds + " seconds" : "now"));
+                            /*"" +*/ (inSeconds > 0 ? "in " + inSeconds + " seconds" : "now"));
                 }
             }
             return job;
