@@ -52,6 +52,9 @@ android {
     lint {
         warningsAsErrors true
     }
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
