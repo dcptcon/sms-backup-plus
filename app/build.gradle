@@ -65,7 +65,7 @@ dependencies {
     implementation 'com.firebase:firebase-jobdispatcher:0.8.6'
         // !!! deprecated read: https://developer.android.com/develop/background-work/background-tasks/persistent/migrate-from-legacy/firebase
 
-    implementation 'androidx.annotation:annotation:1.8.2'
+    implementation 'androidx.annotation:annotation:1.9.1'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'androidx.core:core-role:1.0.0'
 
