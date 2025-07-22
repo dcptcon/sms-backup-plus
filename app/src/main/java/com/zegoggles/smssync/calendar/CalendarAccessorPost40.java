@@ -77,7 +77,9 @@ public class CalendarAccessorPost40 implements CalendarAccessor {
             cursor = resolver.query(CalendarContract.Calendars.CONTENT_URI,
                 new String[] {
                     CalendarContract.Calendars._ID,
-                    CalendarContract.Calendars.NAME,
+                    // https://github.com/jberkel/sms-backup-plus/issues/1112
+                    //CalendarContract.Calendars.NAME,
+                    CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
                     CalendarContract.Calendars.SYNC_EVENTS
                 },
                 null,
